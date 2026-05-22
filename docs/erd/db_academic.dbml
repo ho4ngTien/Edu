@@ -1,0 +1,47 @@
+Project Edu_Academic {
+  database_type: 'PostgreSQL'
+  Note: 'Academic Module - Courses, Classes, Schedule, Teacher Assignment'
+}
+
+Table courses {
+  id          uuid         [pk]
+  code        varchar(50)  [unique, not null]
+  name        varchar(255) [not null]
+  credits     int          [default: 3]
+  description text
+  is_active   boolean      [default: true]
+}
+
+Table classes {
+  id          uuid         [pk]
+  course_id   uuid         [ref: > courses.id, not null]
+  name        varchar(100) [not null, note: 'VD: CS101-A']
+  semester    varchar(50)  [not null, note: 'VD: Fall 2026']
+  max_capacity int         [default: 40]
+}
+
+Table class_students {
+  class_id    uuid         [ref: > classes.id]
+  student_id  uuid         [note: 'Soft Link -> User.students.id']
+  joined_at   timestamp    [default: `now()`]
+  
+  indexes {
+    (class_id, student_id) [pk]
+  }
+}
+
+Table teacher_assignments {
+  id          uuid         [pk]
+  class_id    uuid         [ref: > classes.id, not null]
+  teacher_id  uuid         [not null, note: 'Soft Link -> User.teachers.id']
+  role        varchar(50)  [default: 'PRIMARY', note: 'PRIMARY, ASSISTANT']
+}
+
+Table schedules {
+  id          uuid         [pk]
+  class_id    uuid         [ref: > classes.id, not null]
+  day_of_week int          [note: '1: Monday to 7: Sunday']
+  start_time  time         [not null]
+  end_time    time         [not null]
+  room        varchar(100)
+}

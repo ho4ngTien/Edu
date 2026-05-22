@@ -1,0 +1,15 @@
+{
+  "database": {
+    "engine": "postgresql",
+    "host": "localhost",
+    "port": 5432,
+    "name": "sms",
+    "username": "postgres",
+    "password": "postgres",
+    "pool": {
+      "min": 5,
+      "max": 20,
+      "idleTimeoutMs": 30000
+    }
+  }
+}

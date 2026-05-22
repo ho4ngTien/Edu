@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "SMS Backend (Spring Boot)",
+      "request": "launch",
+      "mainClass": "com.edu.sms.SmsApplication",
+      "projectName": "ide",
+      "cwd": "${workspaceFolder}/backend",
+      "env": {
+        "SPRING_PROFILES_ACTIVE": "dev"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "SMS Frontend (Vite)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "cwd": "${workspaceFolder}/frontend",
+      "port": 9229,
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "SMS Full-Stack (Backend + Frontend)",
+      "configurations": [
+        "SMS Backend (Spring Boot)",
+        "SMS Frontend (Vite)"
+      ]
+    }
+  ]
+}

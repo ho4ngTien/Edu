@@ -1,0 +1,32 @@
+# Frontend Build & Dependency folders
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+frontend/.env.test.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# Backend Build & Compilation folders
+backend/target/
+backend/*.class
+backend/temp_compile/
+temp_compile/
+
+# IDE / System configurations
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# Agent / AI Assistant specific files
+/skills/
+AGENT.md

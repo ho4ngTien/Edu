@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Backend (Maven)",
+      "type": "shell",
+      "command": "mvn clean package -DskipTests",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$javac"]
+    },
+    {
+      "label": "Install Frontend Dependencies",
+      "type": "shell",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "group": "none"
+    },
+    {
+      "label": "Build Frontend (Vite)",
+      "type": "shell",
+      "command": "npm run build",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "dependsOn": ["Install Frontend Dependencies"]
+    },
+    {
+      "label": "Run Local Dev Cluster (All Services)",
+      "type": "shell",
+      "command": "powershell.exe -ExecutionPolicy Bypass -File ${workspaceFolder}/infrastructure/run-dev.bat",
+      "group": "none"
+    },
+    {
+      "label": "Run Docker Compose Cluster",
+      "type": "shell",
+      "command": "powershell.exe -ExecutionPolicy Bypass -File ${workspaceFolder}/infrastructure/run-docker.bat",
+      "group": "none"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: edu-backend
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - edu-network
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: edu-frontend
+    ports:
+      - "80:80"      # Standard HTTP port
+      - "5173:80"    # Fallback to Vite dev port in case port 80 is occupied
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - edu-network
+
+networks:
+  edu-network:
+    driver: bridge
