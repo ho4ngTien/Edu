@@ -30,3 +30,6 @@ Thumbs.db
 # Agent / AI Assistant specific files
 /skills/
 AGENT.md
+
+# Documentation
+/docs/
