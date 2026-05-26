@@ -1,6 +1,23 @@
 version: '3.8'
 
 services:
+  # --- DATABASE ---
+  postgres:
+    image: postgres:15-alpine
+    container_name: edu-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: sms
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - edu-network
+    restart: unless-stopped
+
+  # --- BACKEND ---
   backend:
     build:
       context: ../backend
@@ -8,10 +25,17 @@ services:
     container_name: edu-backend
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/sms
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
     restart: unless-stopped
+    depends_on:
+      - postgres
     networks:
       - edu-network
 
+  # --- FRONTEND ---
   frontend:
     build:
       context: ../frontend
@@ -29,3 +53,6 @@ services:
 networks:
   edu-network:
     driver: bridge
+
+volumes:
+  postgres_data:
