@@ -60,8 +60,8 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return email -> authUserRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + email));
+        return identifier -> authUserRepository.findByUsernameOrCccd(identifier)
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + identifier));
     }
 
     @Bean
