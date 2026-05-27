@@ -28,8 +28,19 @@ public class AuthUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    /**
+     * School‑issued account used for login. Unique and not nullable.
+     */
     @Column(unique = true, nullable = false)
     private String username;
+
+
+    /**
+     * Citizen identification number (CCCD). Unique and not nullable.
+     */
+    @Column(unique = true, nullable = false)
+    private String cccd;
+
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -72,7 +83,7 @@ public class AuthUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email; // Dùng email làm username để đăng nhập
+        return username; // Return school-issued account identifier
     }
 
     @Override
