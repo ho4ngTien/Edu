@@ -4,11 +4,16 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "auth_users")
@@ -17,7 +22,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthUser {
+public class AuthUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -32,8 +37,9 @@ public class AuthUser {
     @Column(nullable = false)
     private String passwordHash;
 
+    @Builder.Default
     @Column(nullable = false)
-    private String status; // e.g. ACTIVE, INACTIVE, LOCKED
+    private boolean isActive = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -49,4 +55,35 @@ public class AuthUser {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    // ─── Spring Security: UserDetails ─────────────────────────────────────
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordHash;
+    }
+
+    @Override
+    public String getUsername() {
+        return email; // Dùng email làm username để đăng nhập
+    }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return isActive; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() { return isActive; }
 }
