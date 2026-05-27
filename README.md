@@ -1,45 +1,194 @@
-# School Management System (SMS)
+# SCHOOL MANAGEMENT SYSTEM (EduSMS)
 
-Hệ thống Quản lý Trường học (School Management System) được thiết kế theo chuẩn **Modular Monolith Architecture**. Dự án được phân tách thành 3 cổng Frontend (Portals) và 1 Backend duy nhất nhưng bên trong chia thành 8 Modules độc lập chạy chung trên một hệ quản trị cơ sở dữ liệu PostgreSQL.
+> A modular monolith platform for school administration — managing students, teachers, academic scheduling, grading, LMS, and attendance across 3 role-based portals with JWT authentication.
 
-## Kiến Trúc Hệ Thống
+[![Java](https://img.shields.io/badge/Java-Spring%20Boot-6DB33F?style=flat&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?style=flat&logo=react&logoColor=white)](https://react.dev)
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
+[![Docker](https://img.shields.io/badge/Deploy-Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 
-### Frontend (Client App)
-- Là một ứng dụng **Single Page Application (SPA)** duy nhất.
-- Hệ thống định tuyến dựa trên vai trò (Role-Based Routing) sau khi đăng nhập thành công:
-  - `/student/*` : Phân hệ dành cho học sinh (Xem điểm, lịch học, nộp bài tập).
-  - `/teacher/*` : Phân hệ dành cho giáo viên (Nhập điểm, điểm danh, giao bài tập).
-  - `/admin/*`   : Phân hệ quản trị hệ thống (Quản lý users, cấu hình trường học, báo cáo).
+> 🚧 **Active Development** — Auth module complete. Currently implementing User & Academic modules.
 
-### Backend (Modular Monolith)
-Ứng dụng Backend Spring Boot duy nhất, chia thành các gói (packages) độc lập (Bounded Contexts). Mỗi Module quản lý một Schema độc lập, giao tiếp với nhau qua Java Interfaces nội bộ (hoặc In-memory Events) và liên kết dữ liệu ở tầng DB bằng **Soft Links** (UUID) thay vì Foreign Key.
+---
 
-1. **Auth Module**: Đăng nhập, JWT, Phân quyền (RBAC).
-2. **User Module**: Quản lý hồ sơ, nhân sự (Student, Teacher, Staff).
-3. **Academic Module**: Quản lý khối lớp, môn học, năm học và thời khóa biểu.
-4. **LMS Module**: Hệ thống học tập (giao bài, nộp bài, tài liệu).
-5. **Grade Module**: Quản lý điểm số, bảng điểm tổng kết (GPA).
-6. **Attendance Module**: Quản lý điểm danh và chuyên cần.
-7. **Notification Module**: Gửi email, thông báo in-app, nhắc nhở deadline.
-8. **Admin Module**: Báo cáo tổng hợp, cấu hình hệ thống.
+## Context
 
-## Tài Liệu Thiết Kế Dữ Liệu (ERD)
+School operations are fragmented across spreadsheets, paper forms, and disconnected tools. EduSMS centralizes everything: enrollment, scheduling, grade management, assignment submission, attendance tracking, and notifications — into a single platform accessible by students, teachers, and administrators.
 
-Các file cấu trúc Database (DBML) cho 8 Microservices được lưu trữ tại thư mục `docs/erd/`:
+**This is a team project built on a Modular Monolith architecture** — one deployable Spring Boot application with 8 independently bounded modules, each owning its own database schema.
 
-| Microservice | File DBML | dbdiagram.io |
-|---|---|---|
-| Auth | [db_auth.dbml](docs/erd/db_auth.dbml) | [Link dbdiagram.io] |
-| User | [db_user.dbml](docs/erd/db_user.dbml) | [Link dbdiagram.io] |
-| Academic | [db_academic.dbml](docs/erd/db_academic.dbml) | [Link dbdiagram.io] |
-| LMS | [db_lms.dbml](docs/erd/db_lms.dbml) | [Link dbdiagram.io] |
-| Grade | [db_grade.dbml](docs/erd/db_grade.dbml) | [Link dbdiagram.io] |
-| Attendance | [db_attendance.dbml](docs/erd/db_attendance.dbml) | [Link dbdiagram.io] |
-| Notification| [db_notification.dbml](docs/erd/db_notification.dbml) | [Link dbdiagram.io] |
-| Admin | [db_admin.dbml](docs/erd/db_admin.dbml) | [Link dbdiagram.io] |
+---
 
-> **Hướng dẫn:** Sử dụng nội dung file `.dbml` chép vào [dbdiagram.io](https://dbdiagram.io) để xem sơ đồ ERD trực quan.
+## Architecture
 
-## Tài liệu Kỹ thuật khác
-- [Kiến trúc chi tiết (Architecture)](docs/architecture_specifications.md)
-- [Luồng nghiệp vụ (Business Flows)](docs/business_flows_and_use_cases.md)
+### System Overview
+
+```mermaid
+graph TB
+    subgraph Frontend["Frontend (React + Vite SPA)"]
+        direction LR
+        S["/student/*<br/>Grades · Schedule · Assignments"]
+        T["/teacher/*<br/>Attendance · Grading · LMS"]
+        A["/admin/*<br/>Users · Config · Reports"]
+    end
+
+    subgraph Backend["Backend (Spring Boot — Modular Monolith)"]
+        direction TB
+        Auth[Auth Module<br/>JWT · RBAC]
+        User[User Module<br/>Student · Teacher · Staff]
+        Academic[Academic Module<br/>Class · Course · Semester]
+        LMS[LMS Module<br/>Assignments · Materials]
+        Grade[Grade Module<br/>Scores · GPA]
+        Attendance[Attendance Module]
+        Notification[Notification Module<br/>Email · In-app]
+        Admin[Admin Module<br/>Reports · Config]
+    end
+
+    DB[(PostgreSQL<br/>8 Schemas)]
+
+    Frontend -->|REST API + JWT| Backend
+    Backend --> DB
+
+    classDef portal fill:#7F9CF5,stroke:#2C3E50,stroke-width:2px,color:#fff
+    classDef module fill:#48BB78,stroke:#2C3E50,stroke-width:2px,color:#fff
+    classDef db fill:#ED8936,stroke:#2C3E50,stroke-width:2px,color:#fff
+
+    class S,T,A portal
+    class Auth,User,Academic,LMS,Grade,Attendance,Notification,Admin module
+    class DB db
+```
+
+### Backend Modules
+
+| Module | Responsibility |
+|:-------|:--------------|
+| `auth` | Login, JWT, refresh token, RBAC |
+| `user` | Profile management — Student, Teacher, Staff |
+| `academic` | Class groups, courses, semesters, timetable |
+| `lms` | Assignment submission, learning materials |
+| `grade` | Score entry, GPA calculation, transcripts |
+| `attendance` | Check-in, absence tracking |
+| `notification` | Email alerts, in-app notifications, deadline reminders |
+| `admin` | System config, aggregate reports |
+
+### Frontend Portals
+
+One SPA with role-based routing after login:
+- `/student/*` — View grades, schedule, submit assignments
+- `/teacher/*` — Enter grades, take attendance, post materials
+- `/admin/*` — Manage users, configure system, view reports
+
+---
+
+## Tech Stack
+
+```
+Frontend      React · TypeScript · Vite
+              React Router · Axios · TailwindCSS
+
+Backend       Spring Boot (Java 21)
+              Spring Security · JWT (jjwt)
+              Spring Data JPA · Hibernate
+              PostgreSQL (per-module schema separation)
+
+Infrastructure  Docker + Docker Compose
+                Nginx (reverse proxy)
+                GitHub (version control)
+```
+
+---
+
+## Project Structure
+
+```
+Edu/
+├── backend/
+│   └── src/main/java/com/edu/sms/
+│       ├── common/               # Shared: security, exception, dto
+│       └── modules/
+│           ├── auth/             # Auth · JWT · RBAC
+│           ├── user/             # Student · Teacher · Profile
+│           ├── academic/         # Class · Course · Semester
+│           ├── lms/              # Assignments · Materials
+│           ├── grade/            # Scores · GPA
+│           ├── attendance/
+│           ├── notification/
+│           └── admin/
+├── frontend/
+│   └── src/
+│       ├── features/             # Feature-based structure
+│       └── shared/               # API client · shared components
+├── infrastructure/
+│   ├── docker-compose.yml
+│   ├── run-docker.bat
+│   └── nginx/
+└── docs/
+    ├── erd/                      # DBML schema files (8 modules)
+    ├── tasks/                    # Sprint task breakdown
+    ├── set-up-guide.md
+    └── team-play-book.md
+```
+
+---
+
+## Database Design (ERD)
+
+Schema files are in `docs/erd/` — paste content into [dbdiagram.io](https://dbdiagram.io) to visualize.
+
+| Module | DBML File |
+|:-------|:---------|
+| Auth | [db_auth.dbml](docs/erd/db_auth.dbml) |
+| User | [db_user.dbml](docs/erd/db_user.dbml) |
+| Academic | [db_academic.dbml](docs/erd/db_academic.dbml) |
+| LMS | [db_lms.dbml](docs/erd/db_lms.dbml) |
+| Grade | [db_grade.dbml](docs/erd/db_grade.dbml) |
+| Attendance | [db_attendance.dbml](docs/erd/db_attendance.dbml) |
+| Notification | [db_notification.dbml](docs/erd/db_notification.dbml) |
+| Admin | [db_admin.dbml](docs/erd/db_admin.dbml) |
+
+---
+
+## Quick Start
+
+```bash
+# Clone & checkout
+git clone https://github.com/ho4ngTien/Edu.git
+cd Edu
+git checkout develop
+
+# Start database
+cd infrastructure && docker-compose up -d
+
+# Backend
+cd ../backend && mvn spring-boot:run
+
+# Frontend
+cd ../frontend && npm install && npm run dev
+```
+
+→ Full setup guide: [docs/set-up-guide.md](docs/set-up-guide.md)
+
+---
+
+## Development Status
+
+| Module | Backend | Frontend |
+|:-------|:-------:|:--------:|
+| Auth (JWT · RBAC) | ✅ Complete | 🚧 In Progress |
+| User (Student · Teacher) | 🚧 In Progress | ⏳ To Do |
+| Academic (Class · Schedule) | ⏳ To Do | ⏳ To Do |
+| LMS (Assignments · Materials) | ⏳ To Do | ⏳ To Do |
+| Grade (Scores · GPA) | ⏳ To Do | ⏳ To Do |
+| Attendance | ⏳ To Do | ⏳ To Do |
+| Notification | ⏳ To Do | ⏳ To Do |
+| Admin (Reports · Config) | ⏳ To Do | ⏳ To Do |
+
+---
+
+## Documentation
+
+- [Business Flows & Use Cases](docs/business_flows_and_use_cases.md)
+- [Setup Guide](docs/set-up-guide.md)
+- [Team Play Book](docs/team-play-book.md)
+- [Sprint Task Board](docs/tasks/00-master-roadmap.md)
