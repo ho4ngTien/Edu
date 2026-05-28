@@ -1,0 +1,19 @@
+Project Edu_Attendance {
+  database_type: 'PostgreSQL'
+  Note: 'Attendance Module - Daily/Class Attendance tracking'
+}
+
+Table attendances {
+  id          uuid         [pk]
+  class_id    uuid         [not null, note: 'Soft Link -> Academic.classes.id']
+  student_id  uuid         [not null, note: 'Soft Link -> User.students.id']
+  date        date         [not null]
+  status      varchar(20)  [not null, note: 'PRESENT, ABSENT, LATE, EXCUSED']
+  remarks     text
+  recorded_by uuid         [not null, note: 'Soft Link -> User.teachers.id']
+  created_at  timestamp    [default: `now()`]
+  
+  indexes {
+    (class_id, student_id, date) [unique]
+  }
+}
