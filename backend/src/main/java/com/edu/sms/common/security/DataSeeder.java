@@ -46,6 +46,7 @@ public class DataSeeder implements CommandLineRunner {
             AuthUser admin = AuthUser.builder()
                     .username("admin")
                     .email(adminEmail)
+                    .cccd("000000000001")
                     .passwordHash(passwordEncoder.encode("Admin@123"))
                     .roles(Set.of(adminRole))
                     .isActive(true)

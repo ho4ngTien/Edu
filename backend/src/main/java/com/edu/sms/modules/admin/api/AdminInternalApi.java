@@ -1,4 +1,4 @@
-﻿package com.edu.sms.modules.admin.api;
+package com.edu.sms.modules.admin.api;
 
 public interface AdminInternalApi {
 }

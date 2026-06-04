@@ -1,4 +1,4 @@
-﻿package com.edu.sms.modules.notification.event;
+package com.edu.sms.modules.notification.event;
 
 import com.edu.sms.common.event.DomainEvent;
 

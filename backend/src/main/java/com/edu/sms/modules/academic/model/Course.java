@@ -27,4 +27,8 @@ public class Course {
     private String description;
 
     private Integer credits;
+
+    @Builder.Default
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
 }

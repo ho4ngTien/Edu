@@ -12,6 +12,7 @@ frontend/pnpm-debug.log*
 
 # Backend Build & Compilation folders
 backend/target/
+backend/uploads/
 backend/*.class
 backend/temp_compile/
 temp_compile/

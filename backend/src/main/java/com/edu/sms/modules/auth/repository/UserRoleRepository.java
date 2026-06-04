@@ -1,4 +1,4 @@
-﻿package com.edu.sms.modules.auth.repository;
+package com.edu.sms.modules.auth.repository;
 
 public interface UserRoleRepository {
 }

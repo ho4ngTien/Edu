@@ -1,4 +1,4 @@
-﻿package com.edu.sms.modules.attendance.api;
+package com.edu.sms.modules.attendance.api;
 
 public interface AttendanceInternalApi {
 }

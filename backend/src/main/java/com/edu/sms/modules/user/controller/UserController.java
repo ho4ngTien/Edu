@@ -7,9 +7,11 @@ import com.edu.sms.modules.user.dto.UserResponse;
 import com.edu.sms.modules.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/users")
@@ -31,5 +33,13 @@ public class UserController {
             @Valid @RequestBody UserRequest request) {
         UserResponse response = userService.updateProfile(currentUser.getId(), request);
         return ResponseEntity.ok(ApiResponse.success("Cập nhật thông tin cá nhân thành công", response));
+    }
+
+    @PostMapping(value = "/profile/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<UserResponse>> uploadAvatar(
+            @AuthenticationPrincipal AuthUser currentUser,
+            @RequestParam("file") MultipartFile file) {
+        UserResponse response = userService.uploadAvatar(currentUser.getId(), file);
+        return ResponseEntity.ok(ApiResponse.success("Cập nhật ảnh đại diện thành công", response));
     }
 }

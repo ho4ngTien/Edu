@@ -21,6 +21,8 @@ Tài liệu này trình bày chi tiết các chức năng (Features) sẽ đư�
 
 ## M02: User & Admin Module (`user`, `admin`)
 **Mục tiêu:** Quản lý nhân sự, học sinh, giáo viên.
+
+**Tiến độ Backend:** ✅ Done — [tasks/backend/02-user-admin.md](backend/02-user-admin.md).
 - **Backend Features:**
   - Quản lý `Profile` (Upload Avatar, Đổi mật khẩu, Sửa thông tin cá nhân).
   - Admin CRUD `Student` (Mã số học sinh, Ngày nhập học).
