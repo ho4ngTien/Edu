@@ -15,6 +15,8 @@ import java.util.UUID;
 public interface TeacherRepository extends JpaRepository<Teacher, UUID> {
     Optional<Teacher> findByTeacherCode(String teacherCode);
 
+    Optional<Teacher> findByProfileAuthUserId(UUID authUserId);
+
     boolean existsByTeacherCode(String teacherCode);
 
     @Query("""

@@ -15,6 +15,8 @@ import java.util.UUID;
 public interface StudentRepository extends JpaRepository<Student, UUID> {
     Optional<Student> findByStudentCode(String studentCode);
 
+    Optional<Student> findByProfileAuthUserId(UUID authUserId);
+
     boolean existsByStudentCode(String studentCode);
 
     @Query("""
