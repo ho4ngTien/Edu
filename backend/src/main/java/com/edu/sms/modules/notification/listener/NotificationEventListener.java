@@ -1,4 +1,4 @@
-﻿package com.edu.sms.modules.notification.listener;
+package com.edu.sms.modules.notification.listener;
 
 public class NotificationEventListener {
 }

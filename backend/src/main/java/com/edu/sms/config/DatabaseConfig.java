@@ -1,4 +1,4 @@
-﻿package com.edu.sms.config;
+package com.edu.sms.config;
 
 public class DatabaseConfig {
 }

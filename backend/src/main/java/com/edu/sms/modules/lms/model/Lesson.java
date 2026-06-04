@@ -1,4 +1,4 @@
-﻿package com.edu.sms.modules.lms.model;
+package com.edu.sms.modules.lms.model;
 
 public class Lesson {
 }

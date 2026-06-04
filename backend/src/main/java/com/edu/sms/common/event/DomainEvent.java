@@ -1,4 +1,4 @@
-﻿package com.edu.sms.common.event;
+package com.edu.sms.common.event;
 
 public abstract class DomainEvent {
 }

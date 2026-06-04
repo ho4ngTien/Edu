@@ -1,4 +1,4 @@
-﻿package com.edu.sms.modules.lms.api;
+package com.edu.sms.modules.lms.api;
 
 public interface LmsInternalApi {
 }
