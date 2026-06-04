@@ -22,4 +22,6 @@ public interface AuthUserRepository extends JpaRepository<AuthUser, UUID> {
     boolean existsByEmail(String email);
 
     boolean existsByUsername(String username);
+
+    boolean existsByCccd(String cccd);
 }

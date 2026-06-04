@@ -3,6 +3,7 @@ package com.edu.sms.modules.user.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -26,4 +27,6 @@ public class Teacher {
     private String teacherCode;
 
     private String department;
+
+    private LocalDate hireDate;
 }
