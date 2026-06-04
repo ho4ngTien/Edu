@@ -28,7 +28,8 @@ temp_compile/
 .DS_Store
 Thumbs.db
 
-# Agent / AI Assistant specific files (project skills under skills/ are tracked)
+# Agent / AI Assistant specific files
+/skills/
 AGENT.md
 
 /scripts/
