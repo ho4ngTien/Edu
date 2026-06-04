@@ -18,7 +18,7 @@ services:
   # --- BACKEND ---
   backend:
     build:
-      context: ../backend
+      context: ..
       dockerfile: Dockerfile
     container_name: edu-backend
     ports:
@@ -36,7 +36,7 @@ services:
   # --- FRONTEND ---
   frontend:
     build:
-      context: ../frontend
+      context: ../../frontend
       dockerfile: Dockerfile
     container_name: edu-frontend
     ports:

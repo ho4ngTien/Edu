@@ -6,10 +6,10 @@ echo ==========================================================
 echo.
 
 echo [+] Dang chuan bi khoi dong Spring Boot Backend (Port 8080)...
-start "EduIDE Spring Boot Backend" cmd /k "cd ../backend && mvn spring-boot:run"
+start "EduIDE Spring Boot Backend" cmd /k "cd .. && mvn spring-boot:run"
 
 echo [+] Dang chuan bi khoi dong Vite React Frontend (Port 5173)...
-start "EduIDE React Frontend" cmd /k "cd ../frontend && npm run dev"
+start "EduIDE React Frontend" cmd /k "cd ../../frontend && npm run dev"
 
 echo.
 echo ==========================================================
