@@ -1,22 +1,23 @@
-# SCHOOL MANAGEMENT SYSTEM (EduSMS)
+# School Management System
 
-> A modular monolith platform for school administration — managing students, teachers, academic scheduling, grading, LMS, and attendance across 3 role-based portals with JWT authentication.
+> A modular monolith platform for educational institution management — handling identity, people, curriculum, academic scheduling, enrollment, teaching assignment, attendance, and assessment across role-based portals.
 
-[![Java](https://img.shields.io/badge/Java-Spring%20Boot-6DB33F?style=flat&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?style=flat&logo=react&logoColor=white)](https://react.dev)
+[![Java](https://img.shields.io/badge/Java_21-Spring_Boot_3.4-6DB33F?style=flat&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/Frontend-React_%2B_Vite-61DAFB?style=flat&logo=react&logoColor=white)](https://react.dev)
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org)
 [![Docker](https://img.shields.io/badge/Deploy-Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com)
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![ArchUnit](https://img.shields.io/badge/ArchUnit-1.4.1-FF6B6B?style=flat)](https://www.archunit.org)
 
-> 🚧 **Active Development** — Auth module complete. Currently implementing User & Academic modules.
+> 🚧 **Active Development** — Architecture design complete (Phase 1). Maven multi-module scaffold initialized (Phase 2.1). Business module implementation in progress.
 
 ---
 
-## Context
+## Overview
 
-School operations are fragmented across spreadsheets, paper forms, and disconnected tools. EduSMS centralizes everything: enrollment, scheduling, grade management, assignment submission, attendance tracking, and notifications — into a single platform accessible by students, teachers, and administrators.
+School operations are fragmented across spreadsheets, paper forms, and disconnected tools. This platform centralizes everything: enrollment, scheduling, grade management, attendance tracking, and notifications — into a single deployable application accessible by students, teachers, and administrators.
 
-**This is a team project built on a Modular Monolith architecture** — one deployable Spring Boot application with 8 independently bounded modules, each owning its own database schema.
+Built on a **Modular Monolith** architecture — one Spring Boot application with 12 independently bounded modules, each owning its own database schema, communicating only through well-defined Java interfaces or Application Events.
 
 ---
 
@@ -28,56 +29,66 @@ School operations are fragmented across spreadsheets, paper forms, and disconnec
 graph TB
     subgraph Frontend["Frontend (React + Vite SPA)"]
         direction LR
-        S["/student/*<br/>Grades · Schedule · Assignments"]
-        T["/teacher/*<br/>Attendance · Grading · LMS"]
-        A["/admin/*<br/>Users · Config · Reports"]
+        S["/student/*<br>Schedule · Grades · Attendance"]
+        T["/teacher/*<br>Attendance · Grading · Classes"]
+        A["/admin/*<br>Users · Config · Academic Structure"]
     end
 
     subgraph Backend["Backend (Spring Boot — Modular Monolith)"]
         direction TB
-        Auth[Auth Module<br/>JWT · RBAC]
-        User[User Module<br/>Student · Teacher · Staff]
-        Academic[Academic Module<br/>Class · Course · Semester]
-        LMS[LMS Module<br/>Assignments · Materials]
-        Grade[Grade Module<br/>Scores · GPA]
-        Attendance[Attendance Module]
-        Notification[Notification Module<br/>Email · In-app]
-        Admin[Admin Module<br/>Reports · Config]
+        identity["identity<br>JWT · RBAC"]
+        organization["organization<br>Campus · Membership"]
+        people["people<br>Student · Teacher profiles"]
+        curriculum["curriculum<br>Programs · Courses"]
+        academic["academic<br>Periods · ClassSections"]
+        enrollment["enrollment<br>Course registration"]
+        teaching["teaching<br>Assignment · Schedule"]
+        attendance["attendance<br>Session check-in"]
+        assessment["assessment<br>Grades · Transcripts"]
+        rule_engine["rule-engine<br>Business rules"]
+        configuration["configuration<br>Typed system config"]
+        certification["certification<br>Graduation conditions"]
     end
 
-    DB[(PostgreSQL<br/>8 Schemas)]
+    DB[("PostgreSQL<br>Multi-Schema")]
 
     Frontend -->|REST API + JWT| Backend
     Backend --> DB
-
-    classDef portal fill:#7F9CF5,stroke:#2C3E50,stroke-width:2px,color:#fff
-    classDef module fill:#48BB78,stroke:#2C3E50,stroke-width:2px,color:#fff
-    classDef db fill:#ED8936,stroke:#2C3E50,stroke-width:2px,color:#fff
-
-    class S,T,A portal
-    class Auth,User,Academic,LMS,Grade,Attendance,Notification,Admin module
-    class DB db
 ```
 
 ### Backend Modules
 
-| Module | Responsibility |
-|:-------|:--------------|
-| `auth` | Login, JWT, refresh token, RBAC |
-| `user` | Profile management — Student, Teacher, Staff |
-| `academic` | Class groups, courses, semesters, timetable |
-| `lms` | Assignment submission, learning materials |
-| `grade` | Score entry, GPA calculation, transcripts |
-| `attendance` | Check-in, absence tracking |
-| `notification` | Email alerts, in-app notifications, deadline reminders |
-| `admin` | System config, aggregate reports |
+| Module | Responsibility | Priority |
+|:-------|:--------------|:--------:|
+| `identity` | Authentication, JWT, RBAC, token management | Must Have |
+| `organization` | Organization, campus units, memberships | Must Have |
+| `people` | Person profile, student profile, teacher profile | Must Have |
+| `curriculum` | Academic programs, program versions, course catalog | Must Have |
+| `academic` | Academic periods, class sections, course offerings | Must Have |
+| `enrollment` | Student enrollment into courses and class sections | Must Have |
+| `teaching` | Teacher assignment to course offerings and classes | Must Have |
+| `attendance` | Session attendance recording and tracking | Must Have |
+| `assessment` | Grade entry, assessment categories, transcripts | Must Have |
+| `rule-engine` | Versioned business rule evaluation | Must Have |
+| `configuration` | Typed system configuration management | Should Have |
+| `certification` | Graduation conditions and certification | Should Have |
+
+### User Roles
+
+All roles are **organization-scoped** — there are no global privileges.
+
+| Role | Description |
+|:-----|:------------|
+| `ORG_ADMIN` | Manages institution configuration, academic structure, and personnel |
+| `TEACHER` | Manages assigned classes, records attendance, enters grades |
+| `STUDENT` | Views personal enrollments, grades, attendance, and schedule |
 
 ### Frontend Portals
 
-One SPA with role-based routing after login:
-- `/student/*` — View grades, schedule, submit assignments
-- `/teacher/*` — Enter grades, take attendance, post materials
-- `/admin/*` — Manage users, configure system, view reports
+One SPA with role-based routing after authentication:
+- `/student/*` — View schedule, grades, attendance history
+- `/teacher/*` — Record attendance, enter grades, view classes
+- `/admin/*` — Manage users, configure academic structure
 
 ---
 
@@ -87,14 +98,16 @@ One SPA with role-based routing after login:
 Frontend      React · TypeScript · Vite
               React Router · Axios · TailwindCSS
 
-Backend       Spring Boot (Java 21)
-              Spring Security · JWT (jjwt)
+Backend       Java 21 · Spring Boot 3.4.3
+              Spring Security · JWT
               Spring Data JPA · Hibernate
-              PostgreSQL (per-module schema separation)
+              PostgreSQL (per-module schema)
+              ArchUnit 1.4.1 (architecture enforcement)
+
+Build         Maven Multi-Module (reactor build)
 
 Infrastructure  Docker + Docker Compose
                 Nginx (reverse proxy)
-                GitHub (version control)
 ```
 
 ---
@@ -104,55 +117,51 @@ Infrastructure  Docker + Docker Compose
 ```
 Edu/
 ├── backend/
-│   └── src/main/java/com/edu/sms/
-│       ├── common/               # Shared: security, exception, dto
-│       └── modules/
-│           ├── auth/             # Auth · JWT · RBAC
-│           ├── user/             # Student · Teacher · Profile
-│           ├── academic/         # Class · Course · Semester
-│           ├── lms/              # Assignments · Materials
-│           ├── grade/            # Scores · GPA
-│           ├── attendance/
-│           ├── notification/
-│           └── admin/
+│   ├── pom.xml                          # Root parent POM (com.edu, Java 21)
+│   ├── boot/                            # Composition Root — EduApplication
+│   ├── shared/
+│   │   └── shared-kernel/               # Base domain abstractions
+│   ├── modules/                         # 12 business modules
+│   │   ├── identity/
+│   │   ├── organization/
+│   │   ├── configuration/
+│   │   ├── people/
+│   │   ├── curriculum/
+│   │   ├── academic/
+│   │   ├── enrollment/
+│   │   ├── teaching/
+│   │   ├── attendance/
+│   │   ├── assessment/
+│   │   ├── certification/
+│   │   └── rule-engine/
+│   ├── tests/
+│   │   └── architecture-tests/          # ArchUnit enforcement
+│   └── docs-be/                         # Architecture documentation
 ├── frontend/
 │   └── src/
-│       ├── features/             # Feature-based structure
-│       └── shared/               # API client · shared components
+│       ├── features/                    # Feature-based modules
+│       └── shared/                      # API client · shared components
 ├── infrastructure/
 │   ├── docker-compose.yml
-│   ├── run-docker.bat
 │   └── nginx/
 └── docs/
-    ├── erd/                      # DBML schema files (8 modules)
-    ├── tasks/                    # Sprint task breakdown
-    ├── set-up-guide.md
-    └── team-play-book.md
 ```
-
----
-
-## Database Design (ERD)
-
-Schema files are in `docs/erd/` — paste content into [dbdiagram.io](https://dbdiagram.io) to visualize.
-
-| Module | DBML File |
-|:-------|:---------|
-| Auth | [db_auth.dbml](docs/erd/db_auth.dbml) |
-| User | [db_user.dbml](docs/erd/db_user.dbml) |
-| Academic | [db_academic.dbml](docs/erd/db_academic.dbml) |
-| LMS | [db_lms.dbml](docs/erd/db_lms.dbml) |
-| Grade | [db_grade.dbml](docs/erd/db_grade.dbml) |
-| Attendance | [db_attendance.dbml](docs/erd/db_attendance.dbml) |
-| Notification | [db_notification.dbml](docs/erd/db_notification.dbml) |
-| Admin | [db_admin.dbml](docs/erd/db_admin.dbml) |
 
 ---
 
 ## Quick Start
 
+### Prerequisites
+
+- Java 21+
+- Maven 3.9+
+- Node.js 20+
+- Docker + Docker Compose
+
+### Run
+
 ```bash
-# Clone & checkout
+# Clone
 git clone https://github.com/ho4ngTien/Edu.git
 cd Edu
 git checkout develop
@@ -160,35 +169,61 @@ git checkout develop
 # Start database
 cd infrastructure && docker-compose up -d
 
-# Backend
-cd ../backend && mvn spring-boot:run
+# Backend — build and run
+cd ../backend
+mvn clean verify          # verify full build (19 modules)
+mvn -pl boot -am spring-boot:run
 
 # Frontend
 cd ../frontend && npm install && npm run dev
 ```
 
-→ Full setup guide: [docs/set-up-guide.md](docs/set-up-guide.md)
-
 ---
 
 ## Development Status
 
-| Module | Backend | Frontend |
-|:-------|:-------:|:--------:|
-| Auth (JWT · RBAC) | ✅ Complete | 🚧 In Progress |
-| User (Student · Teacher) | 🚧 In Progress | ⏳ To Do |
-| Academic (Class · Schedule) | ⏳ To Do | ⏳ To Do |
-| LMS (Assignments · Materials) | ⏳ To Do | ⏳ To Do |
-| Grade (Scores · GPA) | ⏳ To Do | ⏳ To Do |
-| Attendance | ⏳ To Do | ⏳ To Do |
-| Notification | ⏳ To Do | ⏳ To Do |
-| Admin (Reports · Config) | ⏳ To Do | ⏳ To Do |
+### Backend
+
+| Module | Status |
+|:-------|:------:|
+| Architecture docs (Phase 1.1–1.8) | ✅ Complete |
+| Maven multi-module scaffold (Phase 2.1) | ✅ Complete |
+| `shared-kernel` — base abstractions | 🚧 In Progress |
+| `identity` — JWT, RBAC | ⏳ Planned |
+| `organization` — campus, membership | ⏳ Planned |
+| `people` — student, teacher profiles | ⏳ Planned |
+| `curriculum` — programs, courses | ⏳ Planned |
+| `academic` — periods, class sections | ⏳ Planned |
+| `enrollment` | ⏳ Planned |
+| `teaching` | ⏳ Planned |
+| `attendance` | ⏳ Planned |
+| `assessment` — grades, transcripts | ⏳ Planned |
+| `rule-engine` | ⏳ Planned |
+
+### Frontend
+
+| Feature | Status |
+|:--------|:------:|
+| Auth flow (login / token) | 🚧 In Progress |
+| Student portal | 🚧 In Progress |
+| Teacher portal | ⏳ Planned |
+| Admin portal | ⏳ Planned |
 
 ---
 
 ## Documentation
 
-- [Business Flows & Use Cases](docs/business_flows_and_use_cases.md)
-- [Setup Guide](docs/set-up-guide.md)
-- [Team Play Book](docs/team-play-book.md)
-- [Sprint Task Board](docs/tasks/00-master-roadmap.md)
+Architecture documentation is in `backend/docs-be/`:
+
+| Document | Content |
+|:---------|:--------|
+| [MVP Scope & User Roles](backend/docs-be/MVP-SCOPE-AND-USER-ROLES.md) | Feature scope, user roles, acceptance criteria |
+| [Phase 1.1](backend/docs-be/phase1.1.md) | Domain model and entity relationships |
+| [Phase 1.2](backend/docs-be/phase1.2.md) | Module boundaries and dependency rules |
+| [Phase 1.3](backend/docs-be/phase1.3.md) | Core architecture decisions and ADRs |
+| [Phase 1.4](backend/docs-be/phase1.4.md) | Module structure and dependency rules |
+| [Phase 1.5](backend/docs-be/phase1.5.md) | Persistence and database design |
+| [Phase 1.6](backend/docs-be/phase1.6.md) | API contracts and cross-module communication |
+| [Phase 1.7](backend/docs-be/phase1.7.md) | Security architecture and authorization model |
+| [Phase 1.8](backend/docs-be/phase1.8.md) | Application bootstrap, configuration and observability |
+| [Phase 2.1](backend/docs-be/phase2.1.md) | Maven multi-module project scaffold |
