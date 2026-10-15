@@ -253,7 +253,14 @@ mvn clean verify
 
 ## 9. Checklist Nghiệm thu Phase 1.8
 
-**Tiến độ Nghiệm thu Phase 1.8 (0/8)**
+### 9.1. Tiêu chuẩn Thiết kế Kiến trúc (Design Specifications) — Hoàn thành (4/4)
+
+- [x] **ADR-009**: Chốt Composition Root tại `e-edu-boot`, kiểm soát component scanning có chủ đích
+- [x] **ADR-010**: Chuẩn hóa quản lý cấu hình đa môi trường qua Spring Profiles và bảo vệ secrets ngoài Git
+- [x] **ADR-011**: Thống nhất chiến lược Observability (Structured Logging, MDC Correlation ID, Actuator Probes, Micrometer)
+- [x] **ADR-012**: Thống nhất cơ chế khởi tạo PostgreSQL runtime, phân vùng Flyway migrations theo module và chuẩn lỗi JSON
+
+### 9.2. Tiêu chí Kiểm thử Vận hành (Runtime Verification — Thực thi tại Phase 2 & Phase 3) (0/8)
 
 - [ ] **Bootstrap**: Một entry point duy nhất tại `e-edu-boot`, module đăng ký rõ ràng, không có dependency ngược.
 - [ ] **Configuration**: Phân tách profile rõ ràng (`local`, `test`, `staging`, `prod`), bảo mật secrets ngoài Git.

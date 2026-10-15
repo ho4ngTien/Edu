@@ -291,15 +291,15 @@ flowchart TD
 
 ## 9. Checklist Nghiệm thu Phase 1.6
 
-**Phase 1.6 — Acceptance Checklist (0/7)**
+**Tiến độ Nghiệm thu Phase 1.6 (7/7)**
 
-- [ ] Mỗi module có public API và DTO được công khai có chủ đích
-- [ ] Không phụ thuộc repository hoặc JPA entity nội bộ của module khác
-- [ ] Xác định module nào dùng synchronous API và module nào phát event
-- [ ] Chốt quy ước event, transaction và xử lý lỗi
-- [ ] Xác định tenant context và quy tắc authorization xuyên module
-- [ ] Thiết kế RuleEvaluation API có kiểu dữ liệu và giới hạn an toàn
-- [ ] Bổ sung ArchUnit tests để kiểm tra các dependency rules
+- [x] Mỗi module có public API và DTO được công khai có chủ đích
+- [x] Không phụ thuộc repository hoặc JPA entity nội bộ của module khác
+- [x] Xác định module nào dùng synchronous API và module nào phát event
+- [x] Chốt quy ước event, transaction và xử lý lỗi
+- [x] Xác định tenant context và quy tắc authorization xuyên module
+- [x] Thiết kế RuleEvaluation API có kiểu dữ liệu và giới hạn an toàn
+- [x] Bổ sung ArchUnit tests để kiểm tra các dependency rules
 
 ---
 

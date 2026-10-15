@@ -242,14 +242,14 @@ class ModuleBoundaryArchitectureTest {
 
 ## 7. Checklist nghiệm thu Phase 1.4
 
-**Tiến độ Phase 1.4 (0/6)**
+**Tiến độ Phase 1.4 (6/6)**
 
-- [ ] Chốt danh sách module và trách nhiệm dữ liệu của từng module
-- [ ] Xác nhận dependency graph không có vòng phụ thuộc
-- [ ] Quy định public API và package nội bộ cho từng module
-- [ ] Xác định module sở hữu schema và migration
-- [ ] Xác định contract tích hợp với rule-engine
-- [ ] Bổ sung ArchUnit tests vào quy trình CI
+- [x] Chốt danh sách module và trách nhiệm dữ liệu của từng module
+- [x] Xác nhận dependency graph không có vòng phụ thuộc
+- [x] Quy định public API và package nội bộ cho từng module
+- [x] Xác định module sở hữu schema và migration
+- [x] Xác định contract tích hợp với rule-engine
+- [x] Bổ sung ArchUnit tests vào quy trình CI
 
 ---
 

@@ -213,17 +213,17 @@ e-edu-modules/
 
 Trước khi triển khai, cần quyết định cách ứng dụng chính phát hiện và chạy tất cả migration. Có thể dùng một quy trình migration trung tâm với các location được cấu hình rõ ràng, hoặc một cơ chế điều phối migration được kiểm thử riêng.
 Không nên để nhiều Flyway instance cùng cập nhật chung một bảng lịch sử migration một cách không chủ ý. Cần xác định rõ nơi lưu lịch sử, cách phân biệt migration của từng module và thứ tự chạy khi có phụ thuộc giữa các schema.
-7. Checklist nghiệm thu Phase 1.5
-Phase 1.5 — Database checklist
-0/6
+## 7. Checklist nghiệm thu Phase 1.5
 
+**Tiến độ Nghiệm thu Phase 1.5 (6/6)**
 
+- [x] Thống nhất UUID, kiểu thời gian, naming convention và audit fields
+- [x] Xác định entity cùng quyền sở hữu bảng theo từng module
+- [x] Rà soát các quan hệ và composite foreign key liên quan tenant
+- [x] Chốt schema riêng và chiến lược chạy Flyway
+- [x] Thiết kế rule definitions, versions và test cases
+- [x] Kiểm thử tenant isolation và toàn vẹn dữ liệu
 
-[ ] Thống nhất UUID, kiểu thời gian, naming convention và audit fields
-[ ] Xác định entity cùng quyền sở hữu bảng theo từng module
-[ ] Rà soát các quan hệ và composite foreign key liên quan tenant
-[ ] Chốt schema riêng và chiến lược chạy Flyway
-[ ] Thiết kế rule definitions, versions và test cases
-[ ] Kiểm thử tenant isolation và toàn vẹn dữ liệu
+---
 Rà soát và hoàn thiện database design
 Bước tiếp theo sau Phase 1.5: Phase 1.6 — API Contracts & Cross-Module Communication. Ta sẽ xác định các facade, DTO và luồng nghiệp vụ giữa identity, people, enrollment, assessment, rule-engine cùng các module còn lại, rồi mới chuyển sang dựng skeleton Spring Boot và migration thực tế.

@@ -1,13 +1,13 @@
 # Backend Roadmap
 
 ## Phase 1 — Architecture & Requirements
-- [ ] Xác định phạm vi MVP và các nhóm người dùng
+- [x] Xác định phạm vi MVP và các nhóm người dùng ([MVP-SCOPE-AND-USER-ROLES.md](MVP-SCOPE-AND-USER-ROLES.md))
 - [x] Xác định domain model tổng quát ([phase1.1.md](phase1.1.md))
 - [x] Phân chia module và dependency rules ([phase1.2.md](phase1.2.md), [phase1.3.md](phase1.3.md), [phase1.4.md](phase1.4.md), [phase1.5.md](phase1.5.md), [phase1.6.md](phase1.6.md), [phase1.7.md](phase1.7.md), [phase1.8.md](phase1.8.md))
-- [ ] Chốt naming convention và API conventions ([phase1.6.md](phase1.6.md))
+- [x] Chốt naming convention và API conventions ([phase1.5.md](phase1.5.md), [phase1.6.md](phase1.6.md))
 
 ## Phase 2 — Project Setup
-- [ ] Tạo Maven multi-module project
+- [x] Tạo Maven multi-module project ([phase2.1.md](phase2.1.md))
 - [ ] Cấu hình Java 21 và Spring Boot
 - [ ] Thiết lập application profiles
 - [ ] Cấu hình Docker Compose và PostgreSQL

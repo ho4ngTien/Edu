@@ -245,17 +245,17 @@ public record TenantContext(
 
 ## 10. Checklist Nghiệm thu Phase 1.7
 
-**Phase 1.7 — Acceptance Checklist (0/9)**
+**Tiến độ Nghiệm thu Phase 1.7 (9/9)**
 
-- [ ] Chốt cơ chế xác thực Access Token + Refresh Token
-- [ ] Hoàn thiện mô hình User, Role, Permission và OrganizationMembership
-- [ ] Xác định permission codes và phạm vi của từng role
-- [ ] Thiết kế OrganizationAccessPolicy và resource-level policies
-- [ ] Chuẩn hóa tenant context từ HTTP request đến persistence
-- [ ] Xác định CSRF, CORS, password hashing và quản lý secret
-- [ ] Thiết kế audit log cho các thao tác nhạy cảm
-- [ ] Viết kiểm thử truy cập chéo tenant và truy cập trái phép
-- [ ] Thêm ArchUnit rules bảo vệ ranh giới module security
+- [x] Chốt cơ chế xác thực Access Token + Refresh Token
+- [x] Hoàn thiện mô hình User, Role, Permission và OrganizationMembership
+- [x] Xác định permission codes và phạm vi của từng role
+- [x] Thiết kế OrganizationAccessPolicy và resource-level policies
+- [x] Chuẩn hóa tenant context từ HTTP request đến persistence
+- [x] Xác định CSRF, CORS, password hashing và quản lý secret
+- [x] Thiết kế audit log cho các thao tác nhạy cảm
+- [x] Viết kiểm thử truy cập chéo tenant và truy cập trái phép
+- [x] Thêm ArchUnit rules bảo vệ ranh giới module security
 
 ---
 
