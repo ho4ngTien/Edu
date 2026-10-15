@@ -11,7 +11,7 @@ frontend/yarn-error.log*
 frontend/pnpm-debug.log*
 
 # Backend Build & Compilation folders
-backend/target/
+**/target/
 backend/uploads/
 backend/*.class
 backend/temp_compile/
