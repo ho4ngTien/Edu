@@ -6,11 +6,16 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: sms
+      POSTGRES_DB: edu
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d edu"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - edu-network
     restart: unless-stopped
@@ -24,12 +29,13 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/sms
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/edu
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
     restart: unless-stopped
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - edu-network
 
