@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: edu
+
+  profiles:
+    default: local
+
+  main:
+    banner-mode: console
+
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+
+spring.lifecycle:
+  timeout-per-shutdown-phase: 20s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+
+logging:
+  level:
+    root: INFO
+    com.edu: INFO
