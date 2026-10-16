@@ -8,9 +8,8 @@
 
 ## Phase 2 — Project Setup
 - [x] Tạo Maven multi-module project ([phase2.1.md](phase2.1.md))
-- [ ] Cấu hình Java 21 và Spring Boot
-- [ ] Thiết lập application profiles
-- [ ] Cấu hình Docker Compose và PostgreSQL
+- [x] Cấu hình Java 21, Spring Boot và Application Profiles ([phase2.2.md](phase2.2.md))
+- [x] Cấu hình Docker Compose, PostgreSQL và Flyway Multi-Schema ([phase2.3.md](phase2.3.md))
 
 ## Phase 3 — Foundation
 - [ ] Global exception handling

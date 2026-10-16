@@ -1,0 +1,444 @@
+﻿Phase 2.3 — PostgreSQL & Flyway
+Mục tiêu của phase này là kết nối E-Edu với PostgreSQL đang chạy trong Docker, thiết lập quản lý database bằng Flyway và chuẩn bị nền tảng migration cho các module. Ta sẽ làm theo hướng tạo được một migration chạy thành công, kiểm chứng được và không phá vỡ kiến trúc Modular Monolith.
+Vì Phase 2.1 đã hoàn tất và Phase 2.2 tập trung vào bootstrap, phase này sẽ triển khai theo thứ tự:
+
+2.3.1 — Xác nhận PostgreSQL Docker
+Kiểm tra container, port, database và health check hiện có.
+
+
+
+
+2.3.2 — Tích hợp dependency
+PostgreSQL JDBC Driver, Spring Data JPA và Flyway trong đúng module.
+
+
+
+
+2.3.3 — Thiết lập database configuration
+Datasource, biến môi trường và cấu hình theo profile.
+
+
+
+
+2.3.4 — Thiết kế Flyway migration
+Versioning, schema theo module và migration đầu tiên.
+
+
+
+
+2.3.5 — Kiểm thử và nghiệm thu
+Chạy migration, xác minh schema, chạy test và đóng checklist.
+
+
+
+Nguyên tắc kiến trúc cần giữ
+- Database: PostgreSQL, chạy bằng Docker.
+- Backend: Java 21, Spring Boot 3.4.3, Maven Multi-module.
+- Migration: Flyway quản lý thay đổi cấu trúc database; không sửa schema thủ công rồi bỏ qua migration.
+- Schema: phân chia theo module như quyết định AD-02; cần thống nhất cách tạo schema và quyền sở hữu migration trước khi nhân rộng.
+- Bảo mật: không hard-code hoặc commit mật khẩu database.
+- JPA: nếu dùng Hibernate để ánh xạ entity, không để ddl-auto: update tự thay đổi schema trong môi trường phát triển chung; Flyway là nguồn quản lý schema.
+Bắt đầu với Phase 2.3.1 — Xác nhận PostgreSQL Docker
+Chưa tạo container mới vội. Trước tiên, kiểm tra PostgreSQL hiện tại để tránh trùng port 5432, tạo nhầm database hoặc ảnh hưởng dữ liệu đang có.
+Mở PowerShell tại thư mục repository E-Edu và chạy lần lượt:
+1. Kiểm tra container đang chạy
+docker ps
+
+
+2. Kiểm tra cả container đã dừng
+docker ps -a
+
+
+3. Kiểm tra Docker Compose hiện có
+Get-ChildItem -Name *compose*.yaml, *compose*.yml, docker-compose.yaml, docker-compose.yml
+
+
+4. Kiểm tra port PostgreSQL trên Windows
+Test-NetConnection localhost -Port 5432
+
+
+TcpTestSucceeded: True cho biết có dịch vụ đang nhận kết nối TCP ở port đó, nhưng chưa xác nhận chắc chắn đó là PostgreSQL.
+Tiêu chí hoàn thành 2.3.1
+- [ ] Xác định đúng container PostgreSQL.
+- [ ] Xác định port host và port container.
+- [ ] Xác định database và username hiện tại.
+- [ ] Xác nhận PostgreSQL sẵn sàng nhận kết nối.
+- [ ] Không tạo thêm container hoặc volume không cần thiết.
+Mày gửi tao output của docker ps và nội dung file Compose hiện tại (nếu có) nhé. Nhớ che mật khẩu hoặc các thông tin bí mật. Từ cấu hình thật của repo, tao sẽ hướng dẫn tiếp dependency Maven, datasource và Flyway mà không tự ý thay đổi kiến trúc đã chốt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tiếp
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tiếp tục Phase 2.3 — PostgreSQL & Flyway. Vì chưa có output Docker của mày, tao sẽ triển khai bước tiếp theo theo cấu hình mẫu, nhưng giữ nguyên nguyên tắc: kiểm tra cấu hình hiện có trước khi thêm hoặc sửa file.
+Phase 2.3.2 — Tích hợp dependency Maven
+Với E-Edu dùng Spring Boot 3.4.3, Java 21 và Maven Multi-module, các dependency database nên được quản lý tập trung ở root pom.xml, còn dependency thực thi được khai báo tại module cần sử dụng.
+1. Chọn dependency theo vai trò
+Dependency	Vai trò
+PostgreSQL JDBC Driver	Kết nối PostgreSQL
+Spring Data JPA	ORM, ánh xạ Java Entity với database
+Flyway Core	Quản lý migration
+Flyway PostgreSQL	Hỗ trợ PostgreSQL cho Flyway
+Spring Boot Actuator	Health check và quan sát trạng thái ứng dụng
+Lưu ý: Nếu E-Edu đã có các dependency này trong root POM hoặc module POM thì không thêm trùng. Với Flyway, kiểm tra phiên bản được Spring Boot quản lý trước khi override.
+2. Khai báo dependency trong e-edu-boot/pom.xml
+Nếu kiến trúc hiện tại chọn JPA làm persistence layer, phần <dependencies> có thể bao gồm:
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <scope>runtime</scope>
+</dependency>
+
+<dependency>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-core</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-database-postgresql</artifactId>
+</dependency>
+
+
+Các phiên bản dependency nên được quản lý qua Spring Boot BOM đã chốt, không gắn version tùy tiện cho từng dependency.
+Nếu project chưa quyết định dùng JPA hay JDBC, chưa thêm spring-boot-starter-data-jpa vội; JDBC + Flyway cũng có thể là lựa chọn hợp lý ở giai đoạn bootstrap.
+Phase 2.3.3 — Cấu hình kết nối database
+Trong e-edu-boot/src/main/resources/application.yml, cấu hình datasource qua biến môi trường:
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/eedu}
+    username: ${DB_USERNAME:eedu}
+    password: ${DB_PASSWORD}
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    validate-on-migrate: true
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+
+Đây là cấu hình mẫu với giả định database tên eedu, user eedu và PostgreSQL được expose tại localhost:5432. Phải thay bằng thông tin thực tế từ Docker Compose của mày.
+Vì sao dùng ddl-auto: validate? Hibernate chỉ kiểm tra cấu trúc bảng có tương thích với Entity hay không; Flyway chịu trách nhiệm thay đổi schema. Nếu chưa có Entity nào thì có thể tạm bỏ cấu hình JPA cho đến khi module persistence được triển khai.
+Thiết lập biến môi trường trong PowerShell:
+$env:DB_URL = "jdbc:postgresql://localhost:5432/eedu"
+$env:DB_USERNAME = "eedu"
+$env:DB_PASSWORD = "your-local-password"
+
+
+Không commit mật khẩu vào Git. Không dùng mật khẩu mẫu trên làm mật khẩu thực tế.
+Phase 2.3.4 — Thiết lập migration đầu tiên
+Tạo thư mục:
+e-edu-boot/
+└── src/
+    └── main/
+        └── resources/
+            └── db/
+                └── migration/
+                    └── V1__create_initial_schemas.sql
+
+
+Nội dung migration ban đầu có thể tạo các schema đã được kiến trúc E-Edu xác định:
+CREATE SCHEMA IF NOT EXISTS identity;
+CREATE SCHEMA IF NOT EXISTS academic;
+CREATE SCHEMA IF NOT EXISTS organization;
+
+
+Chú ý: Đây chỉ là ví dụ, không phải danh sách schema đã xác nhận trong repo. Mày cần thay bằng tên schema thực tế theo AD-02 và quy ước Phase 1.5. Nếu schema đã được tạo bởi migration trước đó, không tạo thêm migration trùng lặp.
+Flyway sẽ tự tạo bảng flyway_schema_history để ghi nhận migration đã chạy. Không sửa trực tiếp lịch sử này để xử lý lỗi migration thông thường.
+Phase 2.3.5 — Kiểm thử và nghiệm thu
+Sau khi cấu hình đúng với Docker hiện tại, chạy từ thư mục root:
+mvn validate
+mvn clean verify
+
+
+Khởi động ứng dụng:
+mvn -pl e-edu-boot spring-boot:run
+
+
+Kiểm tra health endpoint:
+Invoke-RestMethod http://localhost:8080/actuator/health
+
+
+Kết quả mong đợi khi database được cấu hình thành health indicator và mọi dependency đều hoạt động là trạng thái UP. Nếu Actuator chưa kiểm tra database, endpoint UP riêng lẻ chưa đủ chứng minh kết nối database thành công.
+Checklist nghiệm thu Phase 2.3
+- [ ] Maven resolve dependency thành công.
+- [ ] Backend kết nối đúng PostgreSQL Docker.
+- [ ] Flyway chạy migration thành công.
+- [ ] Schema đúng theo kiến trúc module.
+- [ ] Migration đã chạy không bị thực thi lại ngoài ý muốn.
+- [ ] mvn clean verify thành công.
+- [ ] Database health được kiểm chứng độc lập.
+Bước tiếp theo tao đề xuất: gửi nội dung root pom.xml, e-edu-boot/pom.xml và file Compose hiện tại. Tao sẽ đối chiếu dependency và cấu hình thực tế rồi chốt chính xác các thay đổi cho Phase 2.3, thay vì để mày thêm cấu hình mẫu có thể trùng với kiến trúc đã xây dựng.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tiếp
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tiếp tục nhé. Giờ mình đi sâu vào phần quan trọng nhất của Phase 2.3 — PostgreSQL & Flyway: kiểm chứng migration và chuẩn hóa chiến lược quản lý schema cho E-Edu.
+Vì tao chưa nhận được cấu hình thực tế trong repository, các bước dưới đây là hướng dẫn triển khai và nghiệm thu; chưa thể kết luận code của mày đã đạt.
+2.3.6 — Xác minh Flyway hoạt động
+Bước 1: Kiểm tra PostgreSQL trong Docker
+docker ps
+docker logs eedu-postgres --tail 50
+
+
+eedu-postgres là tên ví dụ. Nếu container của mày tên khác, dùng đúng tên từ docker ps.
+Nếu container đang chạy, kiểm tra PostgreSQL có sẵn sàng không:
+docker exec eedu-postgres pg_isready
+
+
+Bước 2: Chạy ứng dụng và đọc log migration
+Tại thư mục root của E-Edu:
+mvn -pl e-edu-boot spring-boot:run
+
+
+Tìm các log liên quan đến:
+- Flyway kiểm tra database.
+- Flyway phát hiện migration V1.
+- Migration được thực thi thành công.
+- Ứng dụng khởi động hoàn tất.
+Nếu ứng dụng lỗi, chưa nên tạo thêm migration hoặc xóa volume database. Hãy xác định nguyên nhân từ log trước.
+Bước 3: Kiểm tra lịch sử migration
+Kết nối vào database bằng psql hoặc công cụ quản trị PostgreSQL, rồi chạy:
+SELECT
+    installed_rank,
+    version,
+    description,
+    success
+FROM public.flyway_schema_history
+ORDER BY installed_rank;
+
+
+Nếu Flyway được cấu hình dùng schema khác để lưu lịch sử, hãy truy vấn đúng schema đó.
+Kết quả cần xác nhận migration đã chạy thành công (success = true), không chỉ dựa vào việc ứng dụng khởi động được.
+2.3.7 — Chốt chiến lược schema cho Modular Monolith
+E-Edu đã chọn mỗi module có PostgreSQL schema riêng. Điều này có nghĩa là migration phải được tổ chức nhất quán ngay từ đầu.
+Có hai cách tổ chức phổ biến:
+Phương án	Cách hoạt động	Phù hợp khi
+Một migration location tập trung	Bootstrap chạy migration của toàn bộ ứng dụng	Giai đoạn đầu cần đơn giản hóa vận hành
+Migration location theo module	Mỗi module sở hữu migration và schema của mình	Module cần ranh giới sở hữu dữ liệu rõ ràng
+Với E-Edu, tao nghiêng về migration theo module nhưng được điều phối từ bootstrap. Tuy nhiên, cần bảo đảm thứ tự migration và cách quản lý lịch sử rõ ràng; không nên để nhiều module cùng sửa một schema tùy ý.
+Ví dụ cấu trúc mục tiêu:
+e-edu-modules/
+├── identity/
+│   └── src/main/resources/db/migration/
+├── organization/
+│   └── src/main/resources/db/migration/
+└── academic/
+    └── src/main/resources/db/migration/
+
+e-edu-boot/
+└── src/main/resources/
+    └── application.yml
+
+
+Đây là cấu trúc minh họa. Trước khi áp dụng, cần đối chiếu tên artifact và cấu trúc module thật trong repository. Đặc biệt, các migration nằm trong JAR của module phụ thuộc không phải lúc nào cũng được Flyway tự động phát hiện theo cấu hình mặc định; cần cấu hình locations phù hợp và kiểm tra resource có mặt trên runtime classpath.
+2.3.8 — Kiểm thử các tình huống lỗi
+Để phase này có chất lượng tốt, không chỉ kiểm tra trường hợp thành công.
+- Sai mật khẩu: ứng dụng phải báo lỗi kết nối rõ ràng.
+- PostgreSQL chưa sẵn sàng: ứng dụng không được âm thầm coi database là hoạt động bình thường.
+- Migration lỗi: startup phải thể hiện lỗi rõ ràng, không bỏ qua migration bắt buộc.
+- Migration đã chạy: khởi động lại không được tạo bảng hoặc schema trùng lặp.
+- Schema sai: Hibernate validation phải phát hiện sai lệch khi JPA được sử dụng.
+Không nên viết test tự động phụ thuộc vào một database dùng chung có dữ liệu thật. Có thể dùng database test riêng hoặc Testcontainers khi môi trường CI đã sẵn sàng.
+Checklist cập nhật Phase 2.3
+Tiến độ nghiệm thu
+0/8
+
+
+
+[ ] PostgreSQL Docker sẵn sàng và kết nối được
+[ ] Dependency PostgreSQL và Flyway được quản lý đúng trong Maven
+[ ] Datasource lấy thông tin từ biến môi trường
+[ ] Migration đầu tiên chạy thành công
+[ ] Schema và migration history được xác minh
+[ ] Chiến lược migration theo module được chốt
+[ ] Kiểm thử lỗi kết nối và lỗi migration
+[ ] mvn clean verify thành công
+Đây là checklist theo dõi tại cuộc trò chuyện, không phải kết quả kiểm tra repository tự động.
+
+Việc cần làm ngay: chạy ứng dụng với PostgreSQL Docker và xác minh bảng flyway_schema_history. Khi bước này thành công, gửi tao log Flyway và cấu trúc thư mục migration hiện tại; tao sẽ giúp mày chốt migration theo module trước khi chuyển sang phase tiếp theo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+chốt luôn
+
+
+
+
+
+
+
+
+
+
+
+
+
+Chốt luôn Phase 2.3 cho E-Edu. Tao đề xuất ghi nhận các quyết định dưới đây làm chuẩn triển khai, nhất quán với các ADR và cấu trúc Maven đã chốt. Đây là quyết định kiến trúc, chưa đồng nghĩa các hạng mục đã được triển khai và kiểm thử thành công.
+Phase 2.3 — PostgreSQL & Flyway: Final Decisions
+1. Các quyết định được chốt
+DEC-2.3-01 — Database Engine
+PostgreSQL chạy bằng Docker trong môi trường phát triển. Backend chạy trực tiếp trên máy Windows ở giai đoạn hiện tại; kết nối qua port host được cấu hình.
+
+
+
+DEC-2.3-02 — Schema Ownership
+Giữ nguyên AD-02: mỗi module sở hữu PostgreSQL schema riêng. Module không tự ý thay đổi schema thuộc module khác.
+
+
+
+DEC-2.3-03 — Migration Tool
+Sử dụng Flyway để quản lý toàn bộ thay đổi cấu trúc database theo phiên bản. Không dùng Hibernate ddl-auto=update.
+
+
+
+DEC-2.3-04 — Migration Ownership
+Mỗi module đặt migration trong tài nguyên của chính module. e-edu-boot điều phối việc chạy migration, không sở hữu migration nghiệp vụ của các module.
+
+
+
+DEC-2.3-05 — Configuration & Secrets
+Datasource đọc URL, username và password từ biến môi trường. Không commit thông tin xác thực vào Git.
+
+
+
+DEC-2.3-06 — Schema Validation
+Flyway chịu trách nhiệm migration; Hibernate dùng ddl-auto=validate nếu module sử dụng JPA. Kiểm tra schema phải diễn ra sau migration.
+
+
+
+2. Cấu trúc mục tiêu
+e-edu/
+├── pom.xml
+├── e-edu-boot/
+│   └── src/main/
+│       ├── java/com/eedu/boot/
+│       └── resources/
+│           └── application.yml
+├── e-edu-modules/
+│   ├── identity/
+│   │   └── src/main/resources/db/migration/
+│   ├── organization/
+│   │   └── src/main/resources/db/migration/
+│   └── academic/
+│       └── src/main/resources/db/migration/
+└── docker-compose.yml
+
+
+Tên module chỉ là ví dụ để minh họa. Khi triển khai, phải dùng đúng tên artifact và cấu trúc đã có trong repository.
+Quy tắc migration
+- Tên file theo định dạng V1__create_initial_tables.sql, V2__add_student_status.sql.
+- Migration đã áp dụng vào môi trường dùng chung là bất biến; cần thay đổi thì tạo migration mới.
+- Không để nhiều module cùng quản lý một schema.
+- Chốt thứ tự migration và cơ chế điều phối trong bootstrap.
+- Đảm bảo migration resource của các module thực sự có mặt trên runtime classpath và được Flyway phát hiện.
+- Không chạy migration đồng thời từ nhiều instance ứng dụng khi chưa có cơ chế điều phối phù hợp.
+3. Cấu hình nền tảng
+Trong application.yml, thống nhất dùng biến môi trường và không ghi thông tin bí mật trực tiếp:
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+
+Đây là cấu hình chuẩn hóa về mặt định hướng. Các thuộc tính JPA chỉ cần thiết khi E-Edu đã tích hợp JPA; cấu hình Flyway locations, schema mặc định và bảng lịch sử cần được khai báo phù hợp với chiến lược migration nhiều module đã chốt.
+4. Tiêu chí nghiệm thu Phase 2.3
+ID	Tiêu chí	Bằng chứng cần có
+AC-2.3.1	PostgreSQL sẵn sàng	Container health và kết nối thành công
+AC-2.3.2	Maven dependencies đúng	Build resolve dependency thành công
+AC-2.3.3	Datasource hoạt động	Ứng dụng kết nối đúng database
+AC-2.3.4	Flyway hoạt động	Migration được ghi nhận thành công
+AC-2.3.5	Schema theo module	Schema được tạo đúng và có quyền sở hữu rõ ràng
+AC-2.3.6	Migration lặp an toàn	Khởi động lại không chạy lại migration đã áp dụng
+AC-2.3.7	Kiểm soát lỗi	Lỗi kết nối hoặc migration được phát hiện rõ
+AC-2.3.8	Build và test	mvn clean verify thành công
+5. Trạng thái cuối phase
+Quyết định kiến trúc: Đã chốt
+
+Triển khai thực tế: Chưa xác minh
+Phạm vi và quy tắc PostgreSQL/Flyway đã được thống nhất. Chỉ đánh dấu Phase 2.3 hoàn thành khi có bằng chứng từ repository, migration history và kết quả build/test.
+
+Bước tiếp theo trong lộ trình là Phase 2.4 — Persistence Layer & Core Data Model, nơi ta bắt đầu xây dựng Entity, Repository và quy tắc ánh xạ dữ liệu theo module, dựa trên schema và migration đã thiết lập.
