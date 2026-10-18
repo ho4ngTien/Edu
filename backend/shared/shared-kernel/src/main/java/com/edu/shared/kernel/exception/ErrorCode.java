@@ -1,0 +1,12 @@
+package com.edu.shared.kernel.exception;
+
+public enum ErrorCode {
+    VALIDATION_FAILED,
+    INVALID_REQUEST_BODY,
+    UNAUTHORIZED,
+    ACCESS_DENIED,
+    RESOURCE_NOT_FOUND,
+    DUPLICATE_RESOURCE,
+    BUSINESS_RULE_VIOLATION,
+    INTERNAL_ERROR
+}

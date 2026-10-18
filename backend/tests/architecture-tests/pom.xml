@@ -30,6 +30,19 @@
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.edu</groupId>
+            <artifactId>boot</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.edu</groupId>
+            <artifactId>shared-kernel</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
