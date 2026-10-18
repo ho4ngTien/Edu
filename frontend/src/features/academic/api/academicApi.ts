@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Course, AcademicClass } from '../types';
+import type { Course, AcademicClass } from '../types';
 
 const API_BASE = '/api/academic';
 

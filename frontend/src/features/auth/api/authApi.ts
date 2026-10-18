@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoginRequest, AuthResponse } from '../types';
+import type { LoginRequest, AuthResponse } from '../types';
 
 const API_BASE = '/api/auth';
 

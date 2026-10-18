@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Grade } from '../types';
+import type { Grade } from '../types';
 
 const API_BASE = '/api/grade';
 

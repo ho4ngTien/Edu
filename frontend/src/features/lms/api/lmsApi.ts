@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Assignment } from '../types';
+import type { Assignment } from '../types';
 
 const API_BASE = '/api/lms';
 

@@ -43,6 +43,16 @@ spring:
     locations:
       - classpath:db/migration
 
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+
 server:
   port: ${SERVER_PORT:8080}
   shutdown: graceful

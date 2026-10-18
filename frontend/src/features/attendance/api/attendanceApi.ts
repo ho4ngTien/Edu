@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Attendance } from '../types';
+import type { Attendance } from '../types';
 
 const API_BASE = '/api/attendance';
 

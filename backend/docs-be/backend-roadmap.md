@@ -10,6 +10,7 @@
 - [x] Tạo Maven multi-module project ([phase2.1.md](phase2.1.md))
 - [x] Cấu hình Java 21, Spring Boot và Application Profiles ([phase2.2.md](phase2.2.md))
 - [x] Cấu hình Docker Compose, PostgreSQL và Flyway Multi-Schema ([phase2.3.md](phase2.3.md))
+- [x] Shared Kernel & Domain Foundation ([phase2.4.md](phase2.4.md))
 
 ## Phase 3 — Foundation
 - [ ] Global exception handling

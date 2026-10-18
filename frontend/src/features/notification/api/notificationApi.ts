@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Notification } from '../types';
+import type { Notification } from '../types';
 
 const API_BASE = '/api/notifications';
 
