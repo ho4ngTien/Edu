@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SystemConfig } from '../types';
+import type { SystemConfig } from '../types';
 
 const API_BASE = '/api/admin';
 

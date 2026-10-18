@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserProfile } from '../types';
+import type { UserProfile } from '../types';
 
 const API_BASE = '/api/users';
 
