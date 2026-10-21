@@ -11,6 +11,7 @@
 - [x] Cấu hình Java 21, Spring Boot và Application Profiles ([phase2.2.md](phase2.2.md))
 - [x] Cấu hình Docker Compose, PostgreSQL và Flyway Multi-Schema ([phase2.3.md](phase2.3.md))
 - [x] Shared Kernel & Domain Foundation ([phase2.4.md](phase2.4.md))
+- [ ] Identity & Organization Core ([phase2.5.md](phase2.5.md))
 
 ## Phase 3 — Foundation
 - [ ] Global exception handling

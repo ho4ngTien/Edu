@@ -63,13 +63,25 @@ class EduApplicationTests {
     }
 
     @Test
-    @DisplayName("Flyway executes V1 migration and creates migration history")
+    @DisplayName("Flyway executes migrations through V4 and creates migration history")
     void flywayMigrationAppliedSuccessfully() {
         MigrationInfo current = flyway.info().current();
         assertThat(current).isNotNull();
-        assertThat(current.getVersion().getVersion()).isEqualTo("1");
+        assertThat(current.getVersion().compareTo(org.flywaydb.core.api.MigrationVersion.fromVersion("4"))).isGreaterThanOrEqualTo(0);
         assertThat(current.getState().isApplied()).isTrue();
-        assertThat(current.getDescription()).isEqualTo("create initial schemas");
+
+        // Verify Phase 2.5 tables exist
+        List<String> identityTables = jdbcTemplate.queryForList(
+                "SELECT tablename FROM pg_tables WHERE schemaname = 'identity'",
+                String.class
+        );
+        assertThat(identityTables).contains("users");
+
+        List<String> organizationTables = jdbcTemplate.queryForList(
+                "SELECT tablename FROM pg_tables WHERE schemaname = 'organization'",
+                String.class
+        );
+        assertThat(organizationTables).contains("organizations", "organization_memberships");
     }
 
     @Test
