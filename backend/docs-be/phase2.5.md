@@ -1122,18 +1122,18 @@ Kết quả mong đợi: `BUILD SUCCESS` trên toàn bộ 19 modules.
 
 ## 6. Checklist Nghiệm thu Phase 2.5
 
-**Tiến độ Nghiệm thu Phase 2.5 (0/8 tiêu chí hoàn thành)**
+**Tiến độ Nghiệm thu Phase 2.5 (8/8 tiêu chí hoàn thành)**
 
 | Tiêu chí | Mô tả | Trạng thái |
 | :--- | :--- | :---: |
-| **AC-2.5.1** | Flyway migrations `V2`, `V3`, `V4` tạo bảng và indexes chuẩn xác | No |
-| **AC-2.5.2** | JPA Entities (`UserEntity`, `OrganizationEntity`, `OrganizationMembershipEntity`) khớp schema validation | No |
-| **AC-2.5.3** | `OrganizationService` & `MembershipService` triển khai đầy đủ use cases | No |
-| **AC-2.5.4** | `IdentityService` thực hiện đăng ký và hash mật khẩu bằng BCrypt | No |
-| **AC-2.5.5** | Public port `OrganizationAccountQuery` phân tách hoàn toàn ranh giới hai module | No |
-| **AC-2.5.6** | Phân quyền RBAC (`OWNER`, `ADMIN`, `MEMBER`) và tenant scope được kiểm soát | No |
-| **AC-2.5.7** | REST endpoints `/api/v1/identity/*` và `/api/v1/organizations/*` hoạt động đúng chuẩn | No |
-| **AC-2.5.8** | `mvn clean verify` build thành công 19/19 module với đầy đủ test passes | No |
+| **AC-2.5.1** | Flyway migrations `V2`, `V3`, `V4` tạo bảng và indexes chuẩn xác | DONE |
+| **AC-2.5.2** | JPA Entities (`UserEntity`, `OrganizationEntity`, `OrganizationMembershipEntity`) khớp schema validation | DONE |
+| **AC-2.5.3** | `OrganizationService` & `MembershipService` triển khai đầy đủ use cases | DONE |
+| **AC-2.5.4** | `IdentityService` thực hiện đăng ký và hash mật khẩu bằng BCrypt | DONE |
+| **AC-2.5.5** | Public port `OrganizationAccountQuery` phân tách hoàn toàn ranh giới hai module | DONE |
+| **AC-2.5.6** | Phân quyền RBAC (`OWNER`, `ADMIN`, `MEMBER`) và tenant scope được kiểm soát | DONE |
+| **AC-2.5.7** | REST endpoints `/api/v1/identity/*` và `/api/v1/organizations/*` hoạt động đúng chuẩn | DONE |
+| **AC-2.5.8** | `mvn clean verify` build thành công 19/19 module với đầy đủ test passes | DONE |
 
 > [!NOTE]
 > Checklist này phản ánh trạng thái nghiệm thu thực tế dựa trên kết quả build và kiểm thử mã nguồn, không tự động đánh dấu hoàn thành khi chưa có bằng chứng thực nghiệm trên repository.
