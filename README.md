@@ -9,7 +9,7 @@
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![ArchUnit](https://img.shields.io/badge/ArchUnit-1.4.1-FF6B6B?style=flat)](https://www.archunit.org)
 
-> 🚧 **Active Development** — Architecture design complete (Phase 1). Maven multi-module scaffold initialized (Phase 2.1). Business module implementation in progress.
+> 🚧 **Active Development** — Architecture design complete (Phase 1). Multi-schema database, Shared Kernel, Identity core, and Organization core completed (Phase 2.1–2.5). Security & JWT integration (Phase 2.6) in progress.
 
 ---
 
@@ -184,21 +184,26 @@ cd ../frontend && npm install && npm run dev
 
 ### Backend
 
-| Module | Status |
-|:-------|:------:|
-| Architecture docs (Phase 1.1–1.8) | ✅ Complete |
-| Maven multi-module scaffold (Phase 2.1) | ✅ Complete |
-| `shared-kernel` — base abstractions | 🚧 In Progress |
-| `identity` — JWT, RBAC | ⏳ Planned |
-| `organization` — campus, membership | ⏳ Planned |
-| `people` — student, teacher profiles | ⏳ Planned |
-| `curriculum` — programs, courses | ⏳ Planned |
-| `academic` — periods, class sections | ⏳ Planned |
-| `enrollment` | ⏳ Planned |
-| `teaching` | ⏳ Planned |
-| `attendance` | ⏳ Planned |
-| `assessment` — grades, transcripts | ⏳ Planned |
-| `rule-engine` | ⏳ Planned |
+| Module / Area | Status | Notes |
+|:-------|:------:|:------|
+| Architecture docs (Phase 1.1–1.8) | ✅ Complete | Specifications and ADRs complete |
+| Maven multi-module scaffold (Phase 2.1) | ✅ Complete | 19 modules, parent POM, Java 21 |
+| Spring Boot & Profiles (Phase 2.2) | ✅ Complete | Spring Boot 3.4.3, local/test/prod profiles |
+| PostgreSQL & Flyway Multi-Schema (Phase 2.3) | ✅ Complete | Docker Compose, schemas per module |
+| `shared-kernel` & Domain Foundation (Phase 2.4) | ✅ Complete | Base entities, typed IDs, global error response |
+| `identity` — Core Identity (Phase 2.5) | 🚧 Core Complete | Account registration, BCrypt, public query port; JWT in Phase 2.6 |
+| `organization` — Multi-Tenancy (Phase 2.5) | ✅ Complete | Organizations, memberships, RBAC & REST APIs |
+| `tests/architecture-tests` | ✅ Complete | 9 ArchUnit rules enforcing boundaries & security |
+| `people` — student, teacher profiles | ⏳ Planned | Phase 5 |
+| `curriculum` — programs, courses | ⏳ Planned | Phase 5 |
+| `academic` — periods, class sections | ⏳ Planned | Phase 5 |
+| `enrollment` | ⏳ Planned | Phase 5 |
+| `teaching` | ⏳ Planned | Phase 6 |
+| `attendance` | ⏳ Planned | Phase 6 |
+| `assessment` — grades, transcripts | ⏳ Planned | Phase 6 |
+| `rule-engine` | ⏳ Planned | Phase 6 |
+| `configuration` | ⏳ Planned | Phase 4/5 |
+| `certification` | ⏳ Planned | Phase 6 |
 
 ### Frontend
 
@@ -213,11 +218,12 @@ cd ../frontend && npm install && npm run dev
 
 ## Documentation
 
-Architecture documentation is in `backend/docs-be/`:
+Architecture and implementation specifications in `backend/docs-be/`:
 
 | Document | Content |
 |:---------|:--------|
 | [MVP Scope & User Roles](backend/docs-be/MVP-SCOPE-AND-USER-ROLES.md) | Feature scope, user roles, acceptance criteria |
+| [Backend Roadmap](backend/docs-be/backend-roadmap.md) | Implementation milestones, phase breakdown and checklist |
 | [Phase 1.1](backend/docs-be/phase1.1.md) | Domain model and entity relationships |
 | [Phase 1.2](backend/docs-be/phase1.2.md) | Module boundaries and dependency rules |
 | [Phase 1.3](backend/docs-be/phase1.3.md) | Core architecture decisions and ADRs |
@@ -227,3 +233,7 @@ Architecture documentation is in `backend/docs-be/`:
 | [Phase 1.7](backend/docs-be/phase1.7.md) | Security architecture and authorization model |
 | [Phase 1.8](backend/docs-be/phase1.8.md) | Application bootstrap, configuration and observability |
 | [Phase 2.1](backend/docs-be/phase2.1.md) | Maven multi-module project scaffold |
+| [Phase 2.2](backend/docs-be/phase2.2.md) | Java 21, Spring Boot 3.4 & application profiles |
+| [Phase 2.3](backend/docs-be/phase2.3.md) | Docker Compose, PostgreSQL & Flyway multi-schema |
+| [Phase 2.4](backend/docs-be/phase2.4.md) | Shared Kernel, domain primitives & exception handling |
+| [Phase 2.5](backend/docs-be/phase2.5.md) | Identity & Organization core, public ports & ArchUnit rules |
