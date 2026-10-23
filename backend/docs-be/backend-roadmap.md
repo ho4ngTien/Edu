@@ -12,7 +12,7 @@
 - [x] Cấu hình Docker Compose, PostgreSQL và Flyway Multi-Schema ([phase2.3.md](phase2.3.md))
 - [x] Shared Kernel & Domain Foundation ([phase2.4.md](phase2.4.md))
 - [x] Identity & Organization Core ([phase2.5.md](phase2.5.md))
-- [ ] Security & JWT Token Management (Phase 2.6)
+- [ ] Security & JWT Token Management ([phase2.6.md](phase2.6.md))
 
 ## Phase 3 — Foundation & Observability
 - [x] Global exception handling & API error response ([phase2.4.md](phase2.4.md))
@@ -25,9 +25,9 @@
 - [x] Users, tài khoản và mã hóa mật khẩu BCrypt ([phase2.5.md](phase2.5.md))
 - [x] Organizations và Organization Memberships ([phase2.5.md](phase2.5.md))
 - [x] Public Port Decoupling (`OrganizationAccountQuery`) ([phase2.5.md](phase2.5.md))
-- [ ] Spring Security 6 stateless filter chain & JWT Access/Refresh tokens (Phase 2.6)
-- [ ] Authentication endpoints (`POST /api/v1/auth/login`, `POST /api/v1/auth/refresh`)
-- [ ] Tenant resolution context (`X-Organization-Id` header) & RBAC evaluation
+- [ ] Spring Security 6 stateless filter chain & JWT Access/Refresh tokens ([phase2.6.md](phase2.6.md))
+- [ ] Authentication endpoints (`POST /api/v1/auth/login`, `POST /api/v1/auth/refresh`) ([phase2.6.md](phase2.6.md))
+- [ ] Tenant resolution context (`X-Organization-Id` header) & RBAC evaluation ([phase2.6.md](phase2.6.md))
 
 ## Phase 5 — Education Core
 - [ ] Students và teachers (`people` module)
