@@ -224,16 +224,19 @@ Architecture and implementation specifications in `backend/docs-be/`:
 |:---------|:--------|
 | [MVP Scope & User Roles](backend/docs-be/MVP-SCOPE-AND-USER-ROLES.md) | Feature scope, user roles, acceptance criteria |
 | [Backend Roadmap](backend/docs-be/backend-roadmap.md) | Implementation milestones, phase breakdown and checklist |
-| [Phase 1.1](backend/docs-be/phase1.1.md) | Domain model and entity relationships |
-| [Phase 1.2](backend/docs-be/phase1.2.md) | Module boundaries and dependency rules |
-| [Phase 1.3](backend/docs-be/phase1.3.md) | Core architecture decisions and ADRs |
-| [Phase 1.4](backend/docs-be/phase1.4.md) | Module structure and dependency rules |
-| [Phase 1.5](backend/docs-be/phase1.5.md) | Persistence and database design |
-| [Phase 1.6](backend/docs-be/phase1.6.md) | API contracts and cross-module communication |
-| [Phase 1.7](backend/docs-be/phase1.7.md) | Security architecture and authorization model |
-| [Phase 1.8](backend/docs-be/phase1.8.md) | Application bootstrap, configuration and observability |
-| [Phase 2.1](backend/docs-be/phase2.1.md) | Maven multi-module project scaffold |
-| [Phase 2.2](backend/docs-be/phase2.2.md) | Java 21, Spring Boot 3.4 & application profiles |
-| [Phase 2.3](backend/docs-be/phase2.3.md) | Docker Compose, PostgreSQL & Flyway multi-schema |
-| [Phase 2.4](backend/docs-be/phase2.4.md) | Shared Kernel, domain primitives & exception handling |
-| [Phase 2.5](backend/docs-be/phase2.5.md) | Identity & Organization core, public ports & ArchUnit rules |
+| [Phase 1 Overview](backend/docs-be/phase-1/README.md) | Phase 1 Architecture & Requirements index |
+| [Phase 1.1](backend/docs-be/phase-1/phase1.1.md) | Domain model and entity relationships |
+| [Phase 1.2](backend/docs-be/phase-1/phase1.2.md) | Module boundaries and dependency rules |
+| [Phase 1.3](backend/docs-be/phase-1/phase1.3.md) | Core architecture decisions and ADRs |
+| [Phase 1.4](backend/docs-be/phase-1/phase1.4.md) | Module structure and dependency rules |
+| [Phase 1.5](backend/docs-be/phase-1/phase1.5.md) | Persistence and database design |
+| [Phase 1.6](backend/docs-be/phase-1/phase1.6.md) | API contracts and cross-module communication |
+| [Phase 1.7](backend/docs-be/phase-1/phase1.7.md) | Security architecture and authorization model |
+| [Phase 1.8](backend/docs-be/phase-1/phase1.8.md) | Application bootstrap, configuration and observability |
+| [Phase 2 Overview](backend/docs-be/phase-2/README.md) | Phase 2 Foundation & Core Domain index |
+| [Phase 2.1](backend/docs-be/phase-2/phase2.1.md) | Maven multi-module project scaffold |
+| [Phase 2.2](backend/docs-be/phase-2/phase2.2.md) | Java 21, Spring Boot 3.4 & application profiles |
+| [Phase 2.3](backend/docs-be/phase-2/phase2.3.md) | Docker Compose, PostgreSQL & Flyway multi-schema |
+| [Phase 2.4](backend/docs-be/phase-2/phase2.4.md) | Shared Kernel, domain primitives & exception handling |
+| [Phase 2.5](backend/docs-be/phase-2/phase2.5/README.md) | Identity & Organization core, public ports & ArchUnit rules |
+| [Phase 2.6](backend/docs-be/phase-2/phase2.6/README.md) | Security, JWT token management & tenant RBAC |

@@ -91,13 +91,13 @@ backend/
 
 | Phase | Trọng tâm | Trạng thái | Tài liệu đặc tả |
 | :---: | :--- | :---: | :--- |
-| **Phase 1** | Kiến trúc tổng quan, Bounded Contexts, Naming, ADRs | ✅ Hoàn thành | [phase1.1.md](docs-be/phase1.1.md) – [phase1.8.md](docs-be/phase1.8.md) |
-| **Phase 2.1** | Maven Multi-Module Scaffold (19 modules) | ✅ Hoàn thành | [phase2.1.md](docs-be/phase2.1.md) |
-| **Phase 2.2** | Cấu hình Java 21, Spring Boot 3.4.3 & Profiles | ✅ Hoàn thành | [phase2.2.md](docs-be/phase2.2.md) |
-| **Phase 2.3** | Docker Compose PostgreSQL & Flyway Multi-Schema | ✅ Hoàn thành | [phase2.3.md](docs-be/phase2.3.md) |
-| **Phase 2.4** | Shared Kernel, Strongly Typed IDs, Error Handling | ✅ Hoàn thành | [phase2.4.md](docs-be/phase2.4.md) |
-| **Phase 2.5** | Core `identity` & `organization`, Public Ports, ArchUnit | ✅ Hoàn thành | [phase2.5.md](docs-be/phase2.5.md) |
-| **Phase 2.6** | Spring Security 6 stateless filter & JWT Token flow | 🚧 Tiếp theo | [backend-roadmap.md](docs-be/backend-roadmap.md) |
+| **Phase 1** | Kiến trúc tổng quan, Bounded Contexts, Naming, ADRs | ✅ Hoàn thành | [phase-1/](docs-be/phase-1/README.md) ([1.1](docs-be/phase-1/phase1.1.md) – [1.8](docs-be/phase-1/phase1.8.md)) |
+| **Phase 2.1** | Maven Multi-Module Scaffold (19 modules) | ✅ Hoàn thành | [phase2.1.md](docs-be/phase-2/phase2.1.md) |
+| **Phase 2.2** | Cấu hình Java 21, Spring Boot 3.4.3 & Profiles | ✅ Hoàn thành | [phase2.2.md](docs-be/phase-2/phase2.2.md) |
+| **Phase 2.3** | Docker Compose PostgreSQL & Flyway Multi-Schema | ✅ Hoàn thành | [phase2.3.md](docs-be/phase-2/phase2.3.md) |
+| **Phase 2.4** | Shared Kernel, Strongly Typed IDs, Error Handling | ✅ Hoàn thành | [phase2.4.md](docs-be/phase-2/phase2.4.md) |
+| **Phase 2.5** | Core `identity` & `organization`, Public Ports, ArchUnit | ✅ Hoàn thành | [phase2.5/](docs-be/phase-2/phase2.5/README.md) |
+| **Phase 2.6** | Spring Security 6 stateless filter & JWT Token flow | 🚧 Tiếp theo | [phase2.6/](docs-be/phase-2/phase2.6/README.md) |
 | **Phase 3+** | Education Core (`people`, `curriculum`, `academic`, ...) | ⏳ Kế hoạch | [MVP-SCOPE-AND-USER-ROLES.md](docs-be/MVP-SCOPE-AND-USER-ROLES.md) |
 
 ---
@@ -183,16 +183,19 @@ Toàn bộ tài liệu chi tiết nằm tại thư mục [`docs-be/`](docs-be/):
 
 - [MVP Scope & User Roles](docs-be/MVP-SCOPE-AND-USER-ROLES.md): Phạm vi tính năng, nhóm người dùng, quyền hạn.
 - [Backend Roadmap](docs-be/backend-roadmap.md): Lộ trình chi tiết từng phase và checklist tiến độ.
-- [Phase 1.1 — Domain Model](docs-be/phase1.1.md): Sơ đồ thực thể và quan hệ nghiệp vụ tổng thể.
-- [Phase 1.2 — Module Boundaries](docs-be/phase1.2.md): Bounded context và ma trận giao tiếp liên module.
-- [Phase 1.3 — ADRs](docs-be/phase1.3.md): Bảng ghi nhận các quyết định kiến trúc cốt lõi.
-- [Phase 1.4 — Module Structure](docs-be/phase1.4.md): Cấu trúc tầng nội bộ (Clean Architecture).
-- [Phase 1.5 — Persistence Design](docs-be/phase1.5.md): Quy chuẩn lưu trữ và phân vùng multi-schema.
-- [Phase 1.6 — API Contracts](docs-be/phase1.6.md): Chuẩn thiết kế REST API, mã lỗi và events.
-- [Phase 1.7 — Security Architecture](docs-be/phase1.7.md): Mô hình xác thực, phân quyền RBAC và tenant isolation.
-- [Phase 1.8 — Bootstrap & Observability](docs-be/phase1.8.md): Quản lý profile cấu hình, logging và giám sát.
-- [Phase 2.1 — Maven Multi-Module](docs-be/phase2.1.md): Thiết lập khung dự án 19 modules.
-- [Phase 2.2 — Spring Boot & Profiles](docs-be/phase2.2.md): Cấu hình runtime và application profiles.
-- [Phase 2.3 — Multi-Schema & Flyway](docs-be/phase2.3.md): Docker Compose và Flyway multi-schema.
-- [Phase 2.4 — Shared Kernel](docs-be/phase2.4.md): Domain primitives, base entity và exception handling.
-- [Phase 2.5 — Identity & Organization Core](docs-be/phase2.5.md): Entities, Services, REST APIs, Public Ports và ArchUnit.
+- [Phase 1 Index](docs-be/phase-1/README.md): Toàn bộ tài liệu kiến trúc nền tảng Phase 1.
+  - [Phase 1.1 — Domain Model](docs-be/phase-1/phase1.1.md): Sơ đồ thực thể và quan hệ nghiệp vụ tổng thể.
+  - [Phase 1.2 — Module Boundaries](docs-be/phase-1/phase1.2.md): Bounded context và ma trận giao tiếp liên module.
+  - [Phase 1.3 — ADRs](docs-be/phase-1/phase1.3.md): Bảng ghi nhận các quyết định kiến trúc cốt lõi.
+  - [Phase 1.4 — Module Structure](docs-be/phase-1/phase1.4.md): Cấu trúc tầng nội bộ (Clean Architecture).
+  - [Phase 1.5 — Persistence Design](docs-be/phase-1/phase1.5.md): Quy chuẩn lưu trữ và phân vùng multi-schema.
+  - [Phase 1.6 — API Contracts](docs-be/phase-1/phase1.6.md): Chuẩn thiết kế REST API, mã lỗi và events.
+  - [Phase 1.7 — Security Architecture](docs-be/phase-1/phase1.7.md): Mô hình xác thực, phân quyền RBAC và tenant isolation.
+  - [Phase 1.8 — Bootstrap & Observability](docs-be/phase-1/phase1.8.md): Quản lý profile cấu hình, logging và giám sát.
+- [Phase 2 Index](docs-be/phase-2/README.md): Toàn bộ tài liệu hạ tầng và core domain Phase 2.
+  - [Phase 2.1 — Maven Multi-Module](docs-be/phase-2/phase2.1.md): Thiết lập khung dự án 19 modules.
+  - [Phase 2.2 — Spring Boot & Profiles](docs-be/phase-2/phase2.2.md): Cấu hình runtime và application profiles.
+  - [Phase 2.3 — Multi-Schema & Flyway](docs-be/phase-2/phase2.3.md): Docker Compose và Flyway multi-schema.
+  - [Phase 2.4 — Shared Kernel](docs-be/phase-2/phase2.4.md): Domain primitives, base entity và exception handling.
+  - [Phase 2.5 — Identity & Organization Core](docs-be/phase-2/phase2.5/README.md): Entities, Services, REST APIs, Public Ports và ArchUnit.
+  - [Phase 2.6 — Security & JWT Management](docs-be/phase-2/phase2.6/README.md): Stateless filter chain, JWT, Refresh Token & RBAC.
