@@ -127,4 +127,4 @@ To prepare for Phase 2 (Project Setup) and Phase 3 (Foundation):
 1. **Finalize Module Baseline**: Lock the initial dependency graph (`identity`, `organization`, `people`, `curriculum`, `academic`, `enrollment`, `teaching`, `attendance`, `assessment`).
 2. **Contract-First Facades**: Confirm public interface contracts in `api/` packages before implementing database entities.
 3. **Multi-Module Initialization**: Generate Maven multi-module parent and sub-module POM configurations.
-4. **Automated Verification**: Configure ArchUnit architecture tests in `e-edu-tests/architecture-tests` to continuously validate packaging and dependency rules.
+4. **Automated Verification**: Configure ArchUnit architecture tests in `tests/architecture-tests` to continuously validate packaging and dependency rules.
