@@ -2,22 +2,22 @@
 
 ## Phase 1 — Architecture & Requirements
 - [x] Xác định phạm vi MVP và các nhóm người dùng ([MVP-SCOPE-AND-USER-ROLES.md](MVP-SCOPE-AND-USER-ROLES.md))
-- [x] Xác định domain model tổng quát ([phase1.1.md](phase-1/phase1.1.md))
-- [x] Phân chia module và dependency rules ([phase1.2.md](phase-1/phase1.2.md), [phase1.3.md](phase-1/phase1.3.md), [phase1.4.md](phase-1/phase1.4.md), [phase1.5.md](phase-1/phase1.5.md), [phase1.6.md](phase-1/phase1.6.md), [phase1.7.md](phase-1/phase1.7.md), [phase1.8.md](phase-1/phase1.8.md))
-- [x] Chốt naming convention và API conventions ([phase1.5.md](phase-1/phase1.5.md), [phase1.6.md](phase-1/phase1.6.md))
+- [x] Xác định domain model tổng quát ([phase1.1](phase-1/phase1.1/README.md))
+- [x] Phân chia module và dependency rules ([phase1.2](phase-1/phase1.2/README.md), [phase1.3](phase-1/phase1.3/README.md), [phase1.4](phase-1/phase1.4/README.md), [phase1.5](phase-1/phase1.5/README.md), [phase1.6](phase-1/phase1.6/README.md), [phase1.7](phase-1/phase1.7/README.md), [phase1.8](phase-1/phase1.8/README.md))
+- [x] Chốt naming convention và API conventions ([phase1.5](phase-1/phase1.5/README.md), [phase1.6](phase-1/phase1.6/README.md))
 
 ## Phase 2 — Project Setup & Core Domain Foundation
-- [x] Tạo Maven multi-module project ([phase2.1.md](phase-2/phase2.1.md))
-- [x] Cấu hình Java 21, Spring Boot và Application Profiles ([phase2.2.md](phase-2/phase2.2.md))
-- [x] Cấu hình Docker Compose, PostgreSQL và Flyway Multi-Schema ([phase2.3.md](phase-2/phase2.3.md))
-- [x] Shared Kernel & Domain Foundation ([phase2.4.md](phase-2/phase2.4.md))
+- [x] Tạo Maven multi-module project ([phase2.1](phase-2/phase2.1/README.md))
+- [x] Cấu hình Java 21, Spring Boot và Application Profiles ([phase2.2](phase-2/phase2.2/README.md))
+- [x] Cấu hình Docker Compose, PostgreSQL và Flyway Multi-Schema ([phase2.3](phase-2/phase2.3/README.md))
+- [x] Shared Kernel & Domain Foundation ([phase2.4](phase-2/phase2.4/README.md))
 - [x] Identity & Organization Core ([phase2.5](phase-2/phase2.5/README.md))
 - [ ] Security & JWT Token Management ([phase2.6](phase-2/phase2.6/README.md))
 
 ## Phase 3 — Foundation & Observability
-- [x] Global exception handling & API error response ([phase2.4.md](phase-2/phase2.4.md))
-- [x] Request validation và error response chuẩn hóa ([phase2.4.md](phase-2/phase2.4.md), [phase2.5](phase-2/phase2.5/README.md))
-- [x] Flyway migrations đa schema (`identity`, `organization`) ([phase2.3.md](phase-2/phase2.3.md), [phase2.5](phase-2/phase2.5/README.md))
+- [x] Global exception handling & API error response ([phase2.4](phase-2/phase2.4/README.md))
+- [x] Request validation và error response chuẩn hóa ([phase2.4](phase-2/phase2.4/README.md), [phase2.5](phase-2/phase2.5/README.md))
+- [x] Flyway migrations đa schema (`identity`, `organization`) ([phase2.3](phase-2/phase2.3/README.md), [phase2.5](phase-2/phase2.5/README.md))
 - [ ] Logging tập trung và correlation ID (`TraceIdFilter`)
 - [ ] Actuator, metrics và health indicators mở rộng
 
