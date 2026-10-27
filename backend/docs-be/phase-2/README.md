@@ -15,7 +15,7 @@ Tất cả các giai đoạn của Phase 2 đều đã được cấu trúc thà
 | **2.3** | [Docker Compose & PostgreSQL Multi-Schema](phase2.3/README.md) | `phase2.3/` | ✅ Hoàn thành | Thiết lập container PostgreSQL 15, phân tách schemas độc lập và cấu hình Flyway migrations. |
 | **2.4** | [Shared Kernel & Domain Foundation](phase2.4/README.md) | `phase2.4/` | ✅ Hoàn thành | Strongly typed IDs (`UserId`, `OrganizationId`), Base entities, `DomainEvent`, `ApiErrorResponse` và ArchUnit rules. |
 | **2.5** | [Identity & Organization Core](phase2.5/README.md) | `phase2.5/` | ✅ Hoàn thành | Triển khai domain `identity` & `organization`, Public Port `OrganizationAccountQuery`, REST APIs, RBAC và ArchUnit tests.<br/>*(Thư mục gồm 7 tài liệu chi tiết từ migrations đến controllers).* |
-| **2.6** | [Security & JWT Token Management](phase2.6/README.md) | `phase2.6/` | 🚧 Đang triển khai | Kiến trúc bảo mật stateless 3 tầng, Spring Security 6 filter chain, JWT access token, Refresh token rotation, tenant context.<br/>*(Thư mục gồm 9 checkpoints từ ADR đến integration tests).* |
+| **2.6** | [Security & JWT Token Management](phase2.6/README.md) | `phase2.6/` | ✅ Hoàn thành | Kiến trúc bảo mật stateless 3 tầng, Spring Security 6 filter chain, JWT access token, Refresh token rotation, tenant context.<br/>*(Thư mục gồm 9 checkpoints từ ADR đến integration tests).* |
 
 ---
 

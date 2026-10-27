@@ -76,3 +76,17 @@ logging:
   level:
     root: INFO
     com.edu: INFO
+
+app:
+  security:
+    jwt:
+      issuer: ${JWT_ISSUER:https://edu.example.com}
+      audience: ${JWT_AUDIENCE:edu-api}
+      secret-base64: ${JWT_SECRET_BASE64:kX8vP9mN2qR5tU8x/A1bC4dE7gH0jK3mP6sV9yB2eE5=}
+      access-token-ttl: ${JWT_ACCESS_TOKEN_TTL:PT15M}
+      refresh-token-ttl: ${JWT_REFRESH_TOKEN_TTL:P7D}
+    cors:
+      allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:5173}
+      allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+      allowed-headers: Authorization,Content-Type,X-Organization-Id
+      allow-credentials: true

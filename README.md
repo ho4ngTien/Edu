@@ -191,8 +191,9 @@ cd ../frontend && npm install && npm run dev
 | Spring Boot & Profiles (Phase 2.2) | ✅ Complete | Spring Boot 3.4.3, local/test/prod profiles |
 | PostgreSQL & Flyway Multi-Schema (Phase 2.3) | ✅ Complete | Docker Compose, schemas per module |
 | `shared-kernel` & Domain Foundation (Phase 2.4) | ✅ Complete | Base entities, typed IDs, global error response |
-| `identity` — Core Identity (Phase 2.5) | 🚧 Core Complete | Account registration, BCrypt, public query port; JWT in Phase 2.6 |
+| `identity` — Core Identity (Phase 2.5) | ✅ Complete | Account registration, BCrypt, public query port |
 | `organization` — Multi-Tenancy (Phase 2.5) | ✅ Complete | Organizations, memberships, RBAC & REST APIs |
+| Security & JWT Token Management (Phase 2.6) | ✅ Complete | Stateless Spring Security 6, JWT Access (15m), Refresh Token rotation (7d), Tenant Context |
 | `tests/architecture-tests` | ✅ Complete | 9 ArchUnit rules enforcing boundaries & security |
 | `people` — student, teacher profiles | ⏳ Planned | Phase 5 |
 | `curriculum` — programs, courses | ⏳ Planned | Phase 5 |
