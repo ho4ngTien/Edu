@@ -67,15 +67,15 @@ class EduApplicationTests {
     void flywayMigrationAppliedSuccessfully() {
         MigrationInfo current = flyway.info().current();
         assertThat(current).isNotNull();
-        assertThat(current.getVersion().compareTo(org.flywaydb.core.api.MigrationVersion.fromVersion("4"))).isGreaterThanOrEqualTo(0);
+        assertThat(current.getVersion().compareTo(org.flywaydb.core.api.MigrationVersion.fromVersion("5"))).isGreaterThanOrEqualTo(0);
         assertThat(current.getState().isApplied()).isTrue();
 
-        // Verify Phase 2.5 tables exist
+        // Verify Phase 2.5 and 2.6 tables exist
         List<String> identityTables = jdbcTemplate.queryForList(
                 "SELECT tablename FROM pg_tables WHERE schemaname = 'identity'",
                 String.class
         );
-        assertThat(identityTables).contains("users");
+        assertThat(identityTables).contains("users", "refresh_tokens");
 
         List<String> organizationTables = jdbcTemplate.queryForList(
                 "SELECT tablename FROM pg_tables WHERE schemaname = 'organization'",

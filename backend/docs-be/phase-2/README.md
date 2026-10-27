@@ -6,14 +6,16 @@ Tài liệu thiết lập dự án kỹ thuật, hạ tầng cơ sở dữ liệ
 
 ## Danh mục Tài liệu Kỹ thuật
 
-| Phase | Tài liệu | Trạng thái | Mô tả trọng tâm |
-| :---: | :--- | :---: | :--- |
-| **2.1** | [Maven Multi-Module Project](phase2.1.md) | ✅ Hoàn thành | Thiết lập khung dự án Maven Reactor 19 modules, dependency management và plugin compiler. |
-| **2.2** | [Spring Boot Bootstrap & Profiles](phase2.2.md) | ✅ Hoàn thành | Cấu hình Java 21 LTS, Spring Boot 3.4.3, các profile `local`, `test`, `prod` và smoke tests. |
-| **2.3** | [Docker Compose & PostgreSQL Multi-Schema](phase2.3.md) | ✅ Hoàn thành | Thiết lập container PostgreSQL 15, phân tách schemas độc lập và cấu hình Flyway migrations. |
-| **2.4** | [Shared Kernel & Domain Foundation](phase2.4.md) | ✅ Hoàn thành | Strongly typed IDs (`UserId`, `OrganizationId`), Base entities, `DomainEvent`, `ApiErrorResponse` và ArchUnit rules. |
-| **2.5** | [Identity & Organization Core](phase2.5/README.md) | ✅ Hoàn thành | Triển khai domain `identity` & `organization`, Public Port `OrganizationAccountQuery`, REST APIs, RBAC và ArchUnit tests.<br/>*(Thư mục gồm 7 tài liệu chi tiết từ migrations đến controllers).* |
-| **2.6** | [Security & JWT Token Management](phase2.6/README.md) | 🚧 Đang triển khai | Kiến trúc bảo mật stateless 3 tầng, Spring Security 6 filter chain, JWT access token, Refresh token rotation, tenant context.<br/>*(Thư mục gồm 9 checkpoints từ ADR đến integration tests).* |
+Tất cả các giai đoạn của Phase 2 đều đã được cấu trúc thành các thư mục độc lập với các tài liệu thành phần chi tiết:
+
+| Phase | Phân hệ / Giai đoạn | Thư mục | Trạng thái | Mô tả trọng tâm |
+| :---: | :--- | :---: | :---: | :--- |
+| **2.1** | [Maven Multi-Module Project](phase2.1/README.md) | `phase2.1/` | ✅ Hoàn thành | Thiết lập khung dự án Maven Reactor 19 modules, dependency management và plugin compiler. |
+| **2.2** | [Spring Boot Bootstrap & Profiles](phase2.2/README.md) | `phase2.2/` | ✅ Hoàn thành | Cấu hình Java 21 LTS, Spring Boot 3.4.3, các profile `local`, `test`, `prod` và smoke tests. |
+| **2.3** | [Docker Compose & PostgreSQL Multi-Schema](phase2.3/README.md) | `phase2.3/` | ✅ Hoàn thành | Thiết lập container PostgreSQL 15, phân tách schemas độc lập và cấu hình Flyway migrations. |
+| **2.4** | [Shared Kernel & Domain Foundation](phase2.4/README.md) | `phase2.4/` | ✅ Hoàn thành | Strongly typed IDs (`UserId`, `OrganizationId`), Base entities, `DomainEvent`, `ApiErrorResponse` và ArchUnit rules. |
+| **2.5** | [Identity & Organization Core](phase2.5/README.md) | `phase2.5/` | ✅ Hoàn thành | Triển khai domain `identity` & `organization`, Public Port `OrganizationAccountQuery`, REST APIs, RBAC và ArchUnit tests.<br/>*(Thư mục gồm 7 tài liệu chi tiết từ migrations đến controllers).* |
+| **2.6** | [Security & JWT Token Management](phase2.6/README.md) | `phase2.6/` | ✅ Hoàn thành | Kiến trúc bảo mật stateless 3 tầng, Spring Security 6 filter chain, JWT access token, Refresh token rotation, tenant context.<br/>*(Thư mục gồm 9 checkpoints từ ADR đến integration tests).* |
 
 ---
 
@@ -22,10 +24,33 @@ Tài liệu thiết lập dự án kỹ thuật, hạ tầng cơ sở dữ liệ
 ```text
 phase-2/
 ├── README.md                                # Tài liệu tổng quan (file này)
-├── phase2.1.md                              # Maven Multi-Module Project Setup
-├── phase2.2.md                              # Spring Boot Bootstrap & Profiles
-├── phase2.3.md                              # PostgreSQL & Flyway Multi-Schema
-├── phase2.4.md                              # Shared Kernel & Domain Foundation
+├── phase2.1/                                # Maven Multi-Module Project Setup
+│   ├── README.md
+│   ├── 01-maven-multi-module-hierarchy.md
+│   ├── 02-root-parent-pom-configuration.md
+│   ├── 03-module-poms-and-dependencies.md
+│   └── 04-build-verification-guide.md
+├── phase2.2/                                # Spring Boot Bootstrap & Profiles
+│   ├── README.md
+│   ├── 01-spring-boot-application-entrypoint.md
+│   ├── 02-application-profiles-and-configuration.md
+│   ├── 03-configuration-properties-validation.md
+│   └── 04-smoke-tests-and-verification.md
+├── phase2.3/                                # PostgreSQL & Flyway Multi-Schema
+│   ├── README.md
+│   ├── 01-docker-compose-postgresql-setup.md
+│   ├── 02-multi-schema-architecture-and-isolation.md
+│   ├── 03-flyway-migration-management.md
+│   ├── 04-datasource-and-connection-hardening.md
+│   └── 05-verification-and-troubleshooting.md
+├── phase2.4/                                # Shared Kernel & Domain Foundation
+│   ├── README.md
+│   ├── 01-strongly-typed-ids-and-primitives.md
+│   ├── 02-auditable-entity-and-persistence-foundation.md
+│   ├── 03-domain-events-contract-and-publisher.md
+│   ├── 04-global-exception-handling-and-api-error-response.md
+│   ├── 05-archunit-rules-and-architecture-tests.md
+│   └── 06-verification-and-testing-guide.md
 ├── phase2.5/                                # Identity & Organization Core (Module chi tiết)
 │   ├── README.md                            # Tổng quan, Kiến trúc & Điều hướng
 │   ├── 01-database-migrations.md            # V2, V3, V4 SQL Flyway migrations
