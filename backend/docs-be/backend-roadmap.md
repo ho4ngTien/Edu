@@ -12,7 +12,8 @@
 - [x] Cấu hình Docker Compose, PostgreSQL và Flyway Multi-Schema ([phase2.3](phase-2/phase2.3/README.md))
 - [x] Shared Kernel & Domain Foundation ([phase2.4](phase-2/phase2.4/README.md))
 - [x] Identity & Organization Core ([phase2.5](phase-2/phase2.5/README.md))
-- [ ] Security & JWT Token Management ([phase2.6](phase-2/phase2.6/README.md))
+- [x] Security & JWT Token Management ([phase2.6](phase-2/phase2.6/README.md))
+- [ ] Authorization & Access Control (RBAC & Permission Enforcement) ([phase2.7](phase-2/phase2.7/README.md))
 
 ## Phase 3 — Foundation & Observability
 - [x] Global exception handling & API error response ([phase2.4](phase-2/phase2.4/README.md))
@@ -25,9 +26,10 @@
 - [x] Users, tài khoản và mã hóa mật khẩu BCrypt ([phase2.5](phase-2/phase2.5/README.md))
 - [x] Organizations và Organization Memberships ([phase2.5](phase-2/phase2.5/README.md))
 - [x] Public Port Decoupling (`OrganizationAccountQuery`) ([phase2.5](phase-2/phase2.5/README.md))
-- [ ] Spring Security 6 stateless filter chain & JWT Access/Refresh tokens ([phase2.6](phase-2/phase2.6/README.md))
-- [ ] Authentication endpoints (`POST /api/v1/auth/login`, `POST /api/v1/auth/refresh`) ([phase2.6](phase-2/phase2.6/README.md))
-- [ ] Tenant resolution context (`X-Organization-Id` header) & RBAC evaluation ([phase2.6](phase-2/phase2.6/README.md))
+- [x] Spring Security 6 stateless filter chain & JWT Access/Refresh tokens ([phase2.6](phase-2/phase2.6/README.md))
+- [x] Authentication endpoints (`POST /api/v1/auth/login`, `POST /api/v1/auth/refresh`) ([phase2.6](phase-2/phase2.6/README.md))
+- [x] Tenant resolution context (`X-Organization-Id` header) & RBAC evaluation ([phase2.6](phase-2/phase2.6/README.md))
+- [ ] Dynamic RBAC Permission Catalog & Resource-Level Authorization ([phase2.7](phase-2/phase2.7/README.md))
 
 ## Phase 5 — Education Core
 - [ ] Students và teachers (`people` module)
