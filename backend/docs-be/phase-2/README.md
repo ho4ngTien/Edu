@@ -16,6 +16,7 @@ Tất cả các giai đoạn của Phase 2 đều đã được cấu trúc thà
 | **2.4** | [Shared Kernel & Domain Foundation](phase2.4/README.md) | `phase2.4/` | ✅ Hoàn thành | Strongly typed IDs (`UserId`, `OrganizationId`), Base entities, `DomainEvent`, `ApiErrorResponse` và ArchUnit rules. |
 | **2.5** | [Identity & Organization Core](phase2.5/README.md) | `phase2.5/` | ✅ Hoàn thành | Triển khai domain `identity` & `organization`, Public Port `OrganizationAccountQuery`, REST APIs, RBAC và ArchUnit tests.<br/>*(Thư mục gồm 7 tài liệu chi tiết từ migrations đến controllers).* |
 | **2.6** | [Security & JWT Token Management](phase2.6/README.md) | `phase2.6/` | ✅ Hoàn thành | Kiến trúc bảo mật stateless 3 tầng, Spring Security 6 filter chain, JWT access token, Refresh token rotation, tenant context.<br/>*(Thư mục gồm 9 checkpoints từ ADR đến integration tests).* |
+| **2.7** | [Authorization & Access Control](phase2.7/README.md) | `phase2.7/` | 🚧 Đang thiết kế | Phân quyền RBAC đa tầng, danh mục quyền chuẩn hóa, Flyway V6 roles/permissions, method & resource security, chống IDOR chéo tenant.<br/>*(Thư mục gồm 9 checkpoints từ ADR đến security review).* |
 
 ---
 
@@ -60,17 +61,28 @@ phase-2/
 │   ├── 05-rbac-and-tenant-isolation.md      # Ma trận phân quyền & Multi-tenancy
 │   ├── 06-rest-api-controllers.md           # REST API Controllers & DTOs
 │   └── 07-archunit-and-verification.md      # ArchUnit rules & Verification Guide
-└── phase2.6/                                # Security & JWT Management (Checkpoints chi tiết)
+├── phase2.6/                                # Security & JWT Management (Checkpoints chi tiết)
+│   ├── README.md                            # Tổng quan kiến trúc & Checkpoints index
+│   ├── checkpoint-2.6.1-architecture-and-adr.md
+│   ├── checkpoint-2.6.2-dependencies-and-config.md
+│   ├── checkpoint-2.6.3-authentication-api-login.md
+│   ├── checkpoint-2.6.4-jwt-access-token.md
+│   ├── checkpoint-2.6.5-refresh-token-management.md
+│   ├── checkpoint-2.6.6-security-filter-chain.md
+│   ├── checkpoint-2.6.7-tenant-resolution-rbac.md
+│   ├── checkpoint-2.6.8-integration-tests.md
+│   └── checkpoint-2.6.9-hardening-and-summary.md
+└── phase2.7/                                # Authorization & Access Control (Checkpoints chi tiết)
     ├── README.md                            # Tổng quan kiến trúc & Checkpoints index
-    ├── checkpoint-2.6.1-architecture-and-adr.md
-    ├── checkpoint-2.6.2-dependencies-and-config.md
-    ├── checkpoint-2.6.3-authentication-api-login.md
-    ├── checkpoint-2.6.4-jwt-access-token.md
-    ├── checkpoint-2.6.5-refresh-token-management.md
-    ├── checkpoint-2.6.6-security-filter-chain.md
-    ├── checkpoint-2.6.7-tenant-resolution-rbac.md
-    ├── checkpoint-2.6.8-integration-tests.md
-    └── checkpoint-2.6.9-hardening-and-summary.md
+    ├── checkpoint-2.7.1-architecture-and-adr.md
+    ├── checkpoint-2.7.2-permission-model-and-catalog.md
+    ├── checkpoint-2.7.3-role-and-permission-persistence.md
+    ├── checkpoint-2.7.4-organization-level-authorization.md
+    ├── checkpoint-2.7.5-method-level-security.md
+    ├── checkpoint-2.7.6-resource-level-authorization.md
+    ├── checkpoint-2.7.7-authorization-error-mapping.md
+    ├── checkpoint-2.7.8-authorization-integration-tests.md
+    └── checkpoint-2.7.9-security-review-and-acceptance.md
 ```
 
 ---
