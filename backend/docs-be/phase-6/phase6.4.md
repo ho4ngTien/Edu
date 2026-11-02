@@ -184,3 +184,4 @@ edu:
 - [Phase 6.3: Assessments & Grades](phase6.3.md) — Cung cấp `finalGrade` cho rule context
 - [Phase 6.2: Attendance](phase6.2.md) — Cung cấp `attendancePercentage` cho rule context
 - [Phase 6.5: Completion & Certification](phase6.5.md) — Consumer của Rule Engine
+

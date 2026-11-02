@@ -171,3 +171,4 @@ public record TokenResponse(
 - [Phase 7 README](README.md) — Tổng quan phân hệ Quality & Delivery
 - [Phase 7.5: CI/CD Pipeline](phase7.5.md) — Export OpenAPI spec trong CI
 - [Phase 3.1: Global Exception Handling](../phase-3/phase3.1.md) — Schema `ApiErrorResponse`
+

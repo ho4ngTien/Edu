@@ -208,3 +208,4 @@ Architecture tests chạy tự động trong mỗi pull request qua GitHub Actio
 - [Phase 7 README](README.md) — Tổng quan phân hệ Quality & Delivery
 - [Phase 7.1: Unit Tests & Slice Tests](phase7.1.md) — Kiểm thử đơn vị
 - [Phase 4.3: Public Port Decoupling](../phase-4/phase4.3.md) — Lý do AR-07 và AR-08 tồn tại
+

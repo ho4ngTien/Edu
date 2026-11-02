@@ -228,3 +228,4 @@ logging:
 - [Phase 7 README](README.md) — Tổng quan phân hệ Quality & Delivery
 - [Phase 7.1: Unit & Slice Tests](phase7.1.md) — Tầng kiểm thử nhanh
 - [Phase 7.5: CI/CD Pipeline](phase7.5.md) — Tích hợp integration tests vào GitHub Actions
+

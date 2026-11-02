@@ -200,3 +200,4 @@ public class CertificationService {
 - [Phase 6.3: Assessments & Grades](phase6.3.md) — Cung cấp điểm số
 - [Phase 6.2: Attendance](phase6.2.md) — Cung cấp tỉ lệ chuyên cần
 - [Phase 6.4: Rule Engine](phase6.4.md) — Đánh giá quy tắc hoàn thành
+

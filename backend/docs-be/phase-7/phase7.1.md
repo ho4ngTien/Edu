@@ -195,3 +195,4 @@ class AccountControllerTest {
 - [Phase 7 README](README.md) — Tổng quan phân hệ Quality & Delivery
 - [Phase 7.2: Architecture Tests với ArchUnit](phase7.2.md) — Kiểm soát ranh giới module
 - [Phase 7.3: Integration Tests với Testcontainers](phase7.3.md) — E2E tests với PostgreSQL thật
+
