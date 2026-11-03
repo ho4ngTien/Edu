@@ -61,8 +61,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/identity/accounts/register").permitAll()
 
-                        // Actuator Health & Info
-                        .requestMatchers("/actuator/health", "/actuator/info").permitAll()
+                        // Actuator Health, Info & Prometheus
+                        .requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info", "/actuator/prometheus").permitAll()
 
                         // All other requests require valid Bearer token
                         .anyRequest().authenticated()
