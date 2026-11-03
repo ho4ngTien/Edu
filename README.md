@@ -9,7 +9,7 @@
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![ArchUnit](https://img.shields.io/badge/ArchUnit-1.4.1-FF6B6B?style=flat)](https://www.archunit.org)
 
-> 🚧 **Active Development** — Architecture design complete (Phase 1). Multi-schema database, Shared Kernel, Identity core, and Organization core completed (Phase 2.1–2.5). Security & JWT integration (Phase 2.6) in progress.
+> 🚧 **Active Development** — Architecture design complete (Phase 1). Project Setup, Core Domain, Identity & Organization core, and Stateless Security & JWT completed (Phase 2). Foundation & Observability (Phase 3) and Identity, Access & Multi-Tenancy (Phase 4) in active implementation.
 
 ---
 
@@ -184,27 +184,15 @@ cd ../frontend && npm install && npm run dev
 
 ### Backend
 
-| Module / Area | Status | Notes |
+| Phase / Area | Status | Notes |
 |:-------|:------:|:------|
-| Architecture docs (Phase 1.1–1.8) | ✅ Complete | Specifications and ADRs complete |
-| Maven multi-module scaffold (Phase 2.1) | ✅ Complete | 19 modules, parent POM, Java 21 |
-| Spring Boot & Profiles (Phase 2.2) | ✅ Complete | Spring Boot 3.4.3, local/test/prod profiles |
-| PostgreSQL & Flyway Multi-Schema (Phase 2.3) | ✅ Complete | Docker Compose, schemas per module |
-| `shared-kernel` & Domain Foundation (Phase 2.4) | ✅ Complete | Base entities, typed IDs, global error response |
-| `identity` — Core Identity (Phase 2.5) | ✅ Complete | Account registration, BCrypt, public query port |
-| `organization` — Multi-Tenancy (Phase 2.5) | ✅ Complete | Organizations, memberships, RBAC & REST APIs |
-| Security & JWT Token Management (Phase 2.6) | ✅ Complete | Stateless Spring Security 6, JWT Access (15m), Refresh Token rotation (7d), Tenant Context |
-| `tests/architecture-tests` | ✅ Complete | 9 ArchUnit rules enforcing boundaries & security |
-| `people` — student, teacher profiles | ⏳ Planned | Phase 5 |
-| `curriculum` — programs, courses | ⏳ Planned | Phase 5 |
-| `academic` — periods, class sections | ⏳ Planned | Phase 5 |
-| `enrollment` | ⏳ Planned | Phase 5 |
-| `teaching` | ⏳ Planned | Phase 6 |
-| `attendance` | ⏳ Planned | Phase 6 |
-| `assessment` — grades, transcripts | ⏳ Planned | Phase 6 |
-| `rule-engine` | ⏳ Planned | Phase 6 |
-| `configuration` | ⏳ Planned | Phase 4/5 |
-| `certification` | ⏳ Planned | Phase 6 |
+| **Phase 1** — Architecture & Requirements | ✅ Complete | Domain model, bounded contexts, module rules, ADR-001–004 |
+| **Phase 2** — Project Setup & Core Domain Foundation | ✅ Complete | Maven multi-module (19 modules), Spring Boot 3.4.3, PostgreSQL multi-schema, Shared Kernel, Identity & Org core, Security & JWT |
+| **Phase 3** — Foundation & Observability | 🚧 In Progress | Global exception handling, validation, Flyway multi-schema complete; centralized logging & Actuator metrics in progress |
+| **Phase 4** — Identity, Access & Multi-Tenancy | 🚧 In Progress | Users & BCrypt, Org memberships, Public ports, Stateless JWT, Tenant resolution complete; dynamic RBAC catalog in progress |
+| **Phase 5** — Education Core | ⏳ Planned | `people` (students, teachers), `academic` (periods, classes), `curriculum` (courses), `enrollment` |
+| **Phase 6** — Academic Operations | ⏳ Planned | `teaching` (schedules), `attendance`, `assessment` (grades), `rule-engine`, `certification` |
+| **Phase 7** — Quality & Delivery | 🚧 In Progress | Unit tests & WebMvc slice tests, 9 ArchUnit rules complete; Testcontainers, OpenAPI, CI/CD planned |
 
 ### Frontend
 
@@ -227,6 +215,8 @@ Architecture and implementation specifications in `backend/docs-be/`:
 | [Backend Roadmap](backend/docs-be/backend-roadmap.md) | Implementation milestones, phase breakdown and checklist |
 | [Phase 1 Overview](backend/docs-be/phase-1/README.md) | Architecture & Requirements (Domain model, Bounded Contexts, ADRs) |
 | [Phase 2 Overview](backend/docs-be/phase-2/README.md) | Project Setup & Core Domain (Maven multi-module, Flyway, Shared Kernel, Identity, Security) |
-| [Phase 2.5](backend/docs-be/phase-2/phase2.5.md) | Identity & Organization core, public ports & ArchUnit rules |
-| [Phase 2.6](backend/docs-be/phase-2/phase2.6.md) | Security, JWT token management & tenant RBAC |
-| [Phase 2.7](backend/docs-be/phase-2/phase2.7.md) | Authorization & Access Control (Dynamic RBAC, Method Security) |
+| [Phase 3 Overview](backend/docs-be/phase-3/README.md) | Foundation & Observability (Global Exception Handling, Validation, Flyway, Logging, Actuator) |
+| [Phase 4 Overview](backend/docs-be/phase-4/README.md) | Identity, Access & Multi-Tenancy (Users, Org Memberships, JWT, Tenant Resolution, RBAC) |
+| [Phase 5 Overview](backend/docs-be/phase-5/README.md) | Education Core (Students, Academic Periods, Curriculum, Enrollment) |
+| [Phase 6 Overview](backend/docs-be/phase-6/README.md) | Academic Operations (Teaching, Attendance, Assessments, Rule Engine, Certification) |
+| [Phase 7 Overview](backend/docs-be/phase-7/README.md) | Quality & Delivery (Unit tests, ArchUnit 9 rules, Testcontainers, OpenAPI, CI/CD) |
