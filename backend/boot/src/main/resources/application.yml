@@ -64,13 +64,28 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info
-
+        include: health,info,metrics,prometheus
+      base-path: /actuator
   endpoint:
     health:
       show-details: always
+      show-components: always
       probes:
         enabled: true
+  metrics:
+    tags:
+      application: edu
+      environment: ${spring.profiles.active:local}
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+info:
+  app:
+    name: E-Edu Backend
+    description: Hệ thống quản lý giáo dục trực tuyến
+    version: "@project.version@"
 
 logging:
   level:
